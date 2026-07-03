@@ -1,0 +1,273 @@
+aid: neonone
+name: Neon One
+review:
+  question: Does Neon One expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Neon CRM's own public API surface -
+    both the REST API v2 and the outbound webhook mechanism - is one-directional
+    HTTP: REST request/response for API calls, and server-initiated HTTP POST
+    (with client-side retry expected on the receiver, and up to 3 sender-side
+    retries on failure) for webhooks. There is no bidirectional, persistent-
+    connection transport (WebSocket or SSE) documented anywhere in Neon's
+    developer center to model as AsyncAPI.
+findings:
+  summary: |
+    Neon One does not publish a documented public WebSocket API. Neon CRM API
+    v2 is a synchronous REST API over HTTPS at https://api.neoncrm.com/v2
+    (https://trial.z2systems.com/v2 for trial instances), authenticated with
+    HTTP Basic Auth (Org ID as username, API key as password). Real-time
+    notification is handled entirely through outbound webhooks: Neon CRM POSTs
+    a JSON (or form-encoded) payload to a developer-configured URL when an
+    Accounts, Donations, Memberships, Event Registrations, Orders, or
+    Activities record is created, updated, or deleted. This is standard
+    server-to-endpoint HTTP delivery, not a WebSocket. Failed webhook
+    deliveries are retried up to 3 times at 2-second intervals; there is no
+    persistent connection, no ws:// or wss:// scheme, and no mention of
+    WebSocket anywhere in the API v2 reference, resources pages, or the
+    dedicated webhooks documentation.
+  timeSensitiveNote: |
+    Neon One announced on May 5, 2026 that API v1 and the legacy webhook
+    structure will be retired on July 11, 2026 - 8 days from this review date.
+    Any remaining v1 integrations or legacy-format webhooks must migrate to
+    API v2 and the newer Event Trigger format before that date. This review
+    covers API v2 only, which is unaffected by the sunset and is not
+    time-limited.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.neoncrm.com/v2
+      documented: true
+      note: Synchronous JSON request/response API. HTTP Basic Auth with Org ID
+        and API key. Concurrency-based rate limits (5 simultaneous requests
+        per endpoint; 1 for the four search endpoints), not time-window based.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Server-initiated HTTP POST (JSON or form-encoded) to a developer
+        URL on create/update/delete of Accounts, Donations, Memberships,
+        Event Registrations, Orders, and Activities. Retried up to 3 times at
+        2-second intervals on failure. Managed via UI or the Webhooks API
+        (GET/POST /webhooks, GET/PUT/PATCH/DELETE /webhooks/{id}).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint, ws:// or wss:// scheme, or persistent
+        bidirectional connection is documented anywhere in Neon CRM's API v2
+        reference, API v2 Resources pages, or webhooks documentation as of
+        the review date.
+  endpointsConfirmed:
+    - GET    https://api.neoncrm.com/v2/accounts
+    - POST   https://api.neoncrm.com/v2/accounts
+    - GET    https://api.neoncrm.com/v2/accounts/{id}
+    - PUT    https://api.neoncrm.com/v2/accounts/{id}
+    - POST   https://api.neoncrm.com/v2/accounts/search
+    - GET    https://api.neoncrm.com/v2/accounts/search/searchFields
+    - GET    https://api.neoncrm.com/v2/accounts/search/outputFields
+    - POST   https://api.neoncrm.com/v2/accounts/link
+    - POST   https://api.neoncrm.com/v2/accounts/unlink
+    - GET    https://api.neoncrm.com/v2/accounts/{id}/contacts
+    - POST   https://api.neoncrm.com/v2/accounts/{id}/contacts
+    - GET    https://api.neoncrm.com/v2/accounts/{id}/contacts/{contactId}
+    - PUT    https://api.neoncrm.com/v2/accounts/{id}/contacts/{contactId}
+    - PATCH  https://api.neoncrm.com/v2/accounts/{id}/contacts/{contactId}
+    - DELETE https://api.neoncrm.com/v2/accounts/{id}/contacts/{contactId}
+    - GET    https://api.neoncrm.com/v2/accounts/{id}/donations
+    - GET    https://api.neoncrm.com/v2/accounts/{id}/pledges
+    - GET    https://api.neoncrm.com/v2/accounts/{id}/memberships
+    - GET    https://api.neoncrm.com/v2/memberships/{memberId}/subMembers
+    - POST   https://api.neoncrm.com/v2/addresses
+    - GET    https://api.neoncrm.com/v2/addresses/{addressId}
+    - PUT    https://api.neoncrm.com/v2/addresses/{addressId}
+    - PATCH  https://api.neoncrm.com/v2/addresses/{addressId}
+    - DELETE https://api.neoncrm.com/v2/addresses/{addressId}
+    - POST   https://api.neoncrm.com/v2/households
+    - PUT    https://api.neoncrm.com/v2/households/{id}
+    - DELETE https://api.neoncrm.com/v2/households/{id}
+    - GET    https://api.neoncrm.com/v2/households/listHouseholds
+    - GET    https://api.neoncrm.com/v2/households/listRelationTypes
+    - POST   https://api.neoncrm.com/v2/donations
+    - GET    https://api.neoncrm.com/v2/donations/{id}
+    - PUT    https://api.neoncrm.com/v2/donations/{id}
+    - PATCH  https://api.neoncrm.com/v2/donations/{id}
+    - DELETE https://api.neoncrm.com/v2/donations/{id}
+    - POST   https://api.neoncrm.com/v2/donations/search
+    - POST   https://api.neoncrm.com/v2/pledges
+    - GET    https://api.neoncrm.com/v2/pledges/{id}
+    - PUT    https://api.neoncrm.com/v2/pledges/{id}
+    - PATCH  https://api.neoncrm.com/v2/pledges/{id}
+    - DELETE https://api.neoncrm.com/v2/pledges/{id}
+    - GET    https://api.neoncrm.com/v2/pledges/{id}/pledgePayments
+    - POST   https://api.neoncrm.com/v2/pledges/{id}/pledgePayments
+    - GET    https://api.neoncrm.com/v2/pledges/{id}/pledgePayments/{paymentId}
+    - DELETE https://api.neoncrm.com/v2/pledges/{id}/pledgePayments/{paymentId}
+    - GET    https://api.neoncrm.com/v2/pledges/{pledgeId}/installments/{id}
+    - POST   https://api.neoncrm.com/v2/pledges/{pledgeId}/installments
+    - PUT    https://api.neoncrm.com/v2/pledges/{pledgeId}/installments/{id}
+    - DELETE https://api.neoncrm.com/v2/pledges/{pledgeId}/installments/{id}
+    - GET    https://api.neoncrm.com/v2/recurring
+    - POST   https://api.neoncrm.com/v2/recurring
+    - GET    https://api.neoncrm.com/v2/recurring/{id}
+    - PUT    https://api.neoncrm.com/v2/recurring/{id}
+    - PATCH  https://api.neoncrm.com/v2/recurring/{id}
+    - DELETE https://api.neoncrm.com/v2/recurring/{id}
+    - GET    https://api.neoncrm.com/v2/softCredits
+    - GET    https://api.neoncrm.com/v2/softCredits/{id}
+    - POST   https://api.neoncrm.com/v2/softCredits
+    - PUT    https://api.neoncrm.com/v2/softCredits/{id}
+    - PATCH  https://api.neoncrm.com/v2/softCredits/{id}
+    - DELETE https://api.neoncrm.com/v2/softCredits/{id}
+    - GET    https://api.neoncrm.com/v2/campaigns
+    - POST   https://api.neoncrm.com/v2/campaigns
+    - GET    https://api.neoncrm.com/v2/campaigns/{id}
+    - PUT    https://api.neoncrm.com/v2/campaigns/{id}
+    - PATCH  https://api.neoncrm.com/v2/campaigns/{id}
+    - DELETE https://api.neoncrm.com/v2/campaigns/{id}
+    - POST   https://api.neoncrm.com/v2/events
+    - GET    https://api.neoncrm.com/v2/events/{id}
+    - PUT    https://api.neoncrm.com/v2/events/{id}
+    - PATCH  https://api.neoncrm.com/v2/events/{id}
+    - DELETE https://api.neoncrm.com/v2/events/{id}
+    - POST   https://api.neoncrm.com/v2/events/search
+    - GET    https://api.neoncrm.com/v2/events/{id}/tickets
+    - POST   https://api.neoncrm.com/v2/events/{id}/tickets
+    - GET    https://api.neoncrm.com/v2/events/{id}/tickets/{ticketId}
+    - PUT    https://api.neoncrm.com/v2/events/{id}/tickets/{ticketId}
+    - PATCH  https://api.neoncrm.com/v2/events/{id}/tickets/{ticketId}
+    - DELETE https://api.neoncrm.com/v2/events/{id}/tickets/{ticketId}
+    - GET    https://api.neoncrm.com/v2/events/{id}/attendees
+    - GET    https://api.neoncrm.com/v2/events/{id}/eventRegistrations
+    - POST   https://api.neoncrm.com/v2/eventRegistrations
+    - GET    https://api.neoncrm.com/v2/eventRegistrations/{registrationId}
+    - PUT    https://api.neoncrm.com/v2/eventRegistrations/{registrationId}
+    - PATCH  https://api.neoncrm.com/v2/eventRegistrations/{registrationId}
+    - DELETE https://api.neoncrm.com/v2/eventRegistrations/{registrationId}
+    - POST   https://api.neoncrm.com/v2/eventRegistrations/calculate
+    - GET    https://api.neoncrm.com/v2/customFields
+    - POST   https://api.neoncrm.com/v2/customFields
+    - GET    https://api.neoncrm.com/v2/customFields/{id}
+    - PUT    https://api.neoncrm.com/v2/customFields/{id}
+    - GET    https://api.neoncrm.com/v2/customObjects
+    - POST   https://api.neoncrm.com/v2/customObjects
+    - GET    https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}
+    - PUT    https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}
+    - DELETE https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}
+    - GET    https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}/fields
+    - POST   https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}/fields
+    - GET    https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}/records
+    - POST   https://api.neoncrm.com/v2/customObjects/{idOrApiAlias}/records
+    - GET    https://api.neoncrm.com/v2/customObjects/masterDetailObjects
+    - GET    https://api.neoncrm.com/v2/customObjects/lookUpObjects
+    - POST   https://api.neoncrm.com/v2/orders
+    - GET    https://api.neoncrm.com/v2/orders/{id}
+    - DELETE https://api.neoncrm.com/v2/orders/{id}
+    - POST   https://api.neoncrm.com/v2/orders/calculate
+    - POST   https://api.neoncrm.com/v2/orders/search
+    - POST   https://api.neoncrm.com/v2/orders/shippingMethods
+    - POST   https://api.neoncrm.com/v2/orders/{orderId}/payments
+    - GET    https://api.neoncrm.com/v2/store/products
+    - GET    https://api.neoncrm.com/v2/store/products/{productId}
+    - GET    https://api.neoncrm.com/v2/store/catalogs
+    - GET    https://api.neoncrm.com/v2/store/categories
+    - GET    https://api.neoncrm.com/v2/volunteers
+    - GET    https://api.neoncrm.com/v2/opportunities
+    - POST   https://api.neoncrm.com/v2/opportunities
+    - GET    https://api.neoncrm.com/v2/opportunities/{id}
+    - PUT    https://api.neoncrm.com/v2/opportunities/{id}
+    - PATCH  https://api.neoncrm.com/v2/opportunities/{id}
+    - DELETE https://api.neoncrm.com/v2/opportunities/{id}
+    - POST   https://api.neoncrm.com/v2/opportunities/{id}/addVolunteers
+    - DELETE https://api.neoncrm.com/v2/opportunities/{id}/removeVolunteers
+    - GET    https://api.neoncrm.com/v2/opportunities/{opportunityId}/shifts
+    - POST   https://api.neoncrm.com/v2/opportunities/{opportunityId}/shifts
+    - GET    https://api.neoncrm.com/v2/timesheets
+    - POST   https://api.neoncrm.com/v2/timesheets
+    - GET    https://api.neoncrm.com/v2/timesheets/{id}
+    - DELETE https://api.neoncrm.com/v2/timesheets/{id}
+    - GET    https://api.neoncrm.com/v2/webhooks
+    - POST   https://api.neoncrm.com/v2/webhooks
+    - GET    https://api.neoncrm.com/v2/webhooks/{id}
+    - PUT    https://api.neoncrm.com/v2/webhooks/{id}
+    - PATCH  https://api.neoncrm.com/v2/webhooks/{id}
+    - DELETE https://api.neoncrm.com/v2/webhooks/{id}
+  endpointsModeled:
+    - description: Volunteer Groups and Roles endpoints (GET/PUT/DELETE
+        /groups/{id}, POST /groups, POST /groups/{id}/addVolunteers, GET
+        /groups/{id}/volunteers, GET /groups/list, DELETE
+        /groups/{id}/removeVolunteers, POST /roles, GET /roles/list, GET/PUT/DELETE
+        /roles/{id}, GET /roles/{id}/volunteers) were confirmed in the
+        November 2024 API v2.9 update notes but were not included in the
+        OpenAPI document to keep it a representative subset; they are
+        real, documented endpoints.
+    - description: Custom Object Form Layouts, List Layouts, Relations, and
+        Validators sub-resources (e.g. GET/PUT/DELETE
+        /customObjects/{apiAlias}/formLayouts/{id}) were confirmed in the
+        April 2025 API v2.10 update notes but modeled only at a
+        representative level in the OpenAPI document.
+    - description: Full Properties/reference-data lookup surface
+        (/properties/individualTypes, companyTypes, addressTypes, genders,
+        prefixes, sources, relationTypes, activityStatuses, eventCategories,
+        eventTopics, systemTimezones) was confirmed via the rate-limits page
+        but only a representative sample (funds, purposes, solicitationMethods,
+        countries, states) was modeled in the OpenAPI document.
+sources:
+  - url: https://developer.neoncrm.com/authentication/
+    type: Documentation
+    note: Confirms HTTP Basic Auth (Org ID + API key) for API v2; no OAuth
+      support for system users; base URL https://api.neoncrm.com/v2.
+  - url: https://developer.neoncrm.com/api-v2-resources/rate-limits/
+    type: Documentation
+    note: Raw page enumerates the full v2 endpoint surface used for rate
+      limiting - the single most complete public list of real v2 REST
+      paths, all HTTPS request/response, none WebSocket.
+  - url: https://developer.neoncrm.com/api-v2-resources/permissions/
+    type: Documentation
+    note: Confirms Accounts, Donations, Pledges, Recurring, Campaigns,
+      Events, Event Registration, Properties, and Webhooks as
+      permission-gated v2 resource categories.
+  - url: https://developer.neoncrm.com/api-v2-resources/response-codes/
+    type: Documentation
+    note: Documents 200/201/204/222/401/403/404/429 response codes for v2;
+      429 is the rate-limit response, not a WebSocket handshake code.
+  - url: https://developer.neoncrm.com/webhooks/
+    type: Documentation
+    note: Explicitly describes webhooks as HTTP POST notifications (JSON or
+      form-encoded) with 3x retry at 2-second intervals - one-directional
+      server-to-endpoint HTTP, not WebSocket.
+  - url: https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/
+    type: Documentation
+    note: Confirms exact Households endpoints shipped June 7, 2025.
+  - url: https://developer.neoncrm.com/2025/04/14/api-v2-10-update-custom-objects/
+    type: Documentation
+    note: Confirms exact Custom Objects endpoints shipped April 12, 2025.
+  - url: https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/
+    type: Documentation
+    note: Confirms exact Volunteers, Groups, Opportunities, Roles, Shifts,
+      and Time Sheets endpoints shipped November 16, 2024.
+  - url: https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/
+    type: Documentation
+    note: Confirms the /accounts/{id}/memberships isActive and
+      primaryActiveMembership fields and the opportunityRoles parameter on
+      /addVolunteers, both API v2.11 (October 18, 2025).
+  - url: https://developer.neoncrm.com/2026/05/05/neon-crm-api-v1-legacy-webhooks-will-be-deprecated-july-11th-2026/
+    type: Documentation
+    note: Announces API v1 and legacy webhook sunset on July 11, 2026 - 8
+      days after this review date. Does not affect API v2.
+  - url: https://developer.neoncrm.com/api-v2-resources/versions/
+    type: Documentation
+    note: Lists API v2 versions 2.0 (May 2020) through 2.11 (October 2025),
+      all currently valid.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Neon One's public API. Neon CRM
+    API v2 is synchronous REST, and its only server-initiated notification
+    channel - webhooks - is one-directional HTTP POST with sender-side retry,
+    not a persistent bidirectional connection. No AsyncAPI document was
+    created because there is no server-push transport (WebSocket or SSE) to
+    model; the webhook payload shape is already fully described inline in
+    the Webhooks API section of openapi/neonone-openapi.yml.

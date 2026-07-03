@@ -1,0 +1,103 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Neon One
+providerId: neonone
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Nonprofit
+- CRM
+- Fundraising
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Neon One spend. Neon CRM is billed as a per-organization
+  software subscription (Essentials/Impact/Empower) priced against the
+  nonprofit's annual revenue, with optional Memberships, Volunteers, and
+  Events add-on modules each billed as a percentage surcharge on the base
+  subscription. The Neon CRM API v2 and its webhooks are bundled into every
+  subscription tier at no separate metered charge - API usage itself does not
+  generate incremental Neon invoice line items. Payment processing (donations,
+  memberships, store orders processed through Neon's integrated payment
+  gateway) is billed separately as processing fees on transaction volume, not
+  covered by this document.
+notes: >-
+  Exact revenue-tier thresholds are not published; verify current pricing with
+  a Neon One sales representative. This document covers CRM subscription and
+  add-on module spend only, not third-party payment processor fees.
+sources:
+- https://neonone.com/solutions/neon-crm-overview/neon-crm-pricing/
+- https://neonone.com/resources/blog/nonprofit-crm-pricing-neo/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Neon One
+serviceCategory: SaaS - Nonprofit CRM and Fundraising
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Neon CRM
+  ServiceCategory: SaaS - Nonprofit CRM and Fundraising
+  ProviderName: Neon One
+  PublisherName: Neon One
+  InvoiceIssuerName: Neon One
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: base_subscription
+  description: Monthly Essentials/Impact/Empower subscription fee, scaled to
+    the organization's annual revenue tier.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - organization
+  - plan_tier
+- name: addon_module_surcharge
+  description: Percentage surcharge on the base subscription for the
+    Memberships (+10%), Volunteers (+10%), or Events (+20%) add-on modules.
+  unit: percent
+  aggregation: sum
+  dimensions:
+  - organization
+  - module
+- name: api_usage
+  description: Neon CRM API v2 requests and webhook deliveries - included in
+    subscription, not separately metered or billed.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - organization
+  - endpoint
+principles:
+- name: Visibility
+  description: Track which add-on modules (Memberships, Volunteers, Events)
+    are active per organization, since each adds a recurring percentage
+    surcharge rather than a flat fee.
+- name: Allocation
+  description: Map the single Neon CRM subscription to the development,
+    fundraising, membership, and events teams that consume it, since one
+    invoice covers all API-driven integrations.
+- name: Optimization
+  description: Right-size the plan tier to actual annual revenue at renewal,
+    and disable unused add-on modules to avoid paying their percentage
+    surcharge.
+- name: Accountability
+  description: Assign a subscription owner to review the annual revenue-tier
+    true-up and add-on module usage before each contract renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

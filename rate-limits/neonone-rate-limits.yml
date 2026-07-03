@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Neon One
+providerId: neonone
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Nonprofit
+- CRM
+- Fundraising
+- Rate Limiting
+- Quotas
+description: >-
+  Neon CRM API v2 does not rate-limit on requests-per-unit-of-time. Instead it
+  caps the number of simultaneous (concurrent, in-flight) requests permitted
+  per endpoint, per Neon CRM organization instance, described in the docs as
+  "rate limits in terms of number of requests per thread pool." Nearly every
+  endpoint allows up to 5 simultaneous requests; the four search endpoints
+  (POST /accounts/search, POST /donations/search, POST /events/search, POST
+  /orders/search) are limited to 1 simultaneous request each because search
+  queries are the most resource-intensive operation in the API. Limits are
+  independent per endpoint and per organization - concurrent calls to one
+  endpoint do not count against a different endpoint or a different Neon CRM
+  system.
+notes: >-
+  Exceeding a rate limit returns 429 Too Many Requests. Neon recommends
+  implementing sleep functions or a rate-managed request queue rather than
+  firing many simultaneous requests at a single endpoint. No numeric
+  requests-per-minute/day quota is published for API v2.
+sources:
+- https://developer.neoncrm.com/api-v2-resources/rate-limits/
+- https://developer.neoncrm.com/api-v2-resources/response-codes/
+responseCodes:
+  throttled: 429
+limits:
+- name: Standard Endpoint Concurrency
+  scope: endpoint
+  metric: simultaneous requests
+  limit: '5'
+  notes: Default concurrency cap applied per endpoint per organization instance
+    for the large majority of API v2 endpoints (accounts, addresses, pledges,
+    recurring donations, campaigns, donations, events, event registrations,
+    memberships, custom objects, orders, store, volunteers, webhooks, and
+    properties/reference lookups).
+- name: Search Endpoint Concurrency
+  scope: endpoint
+  metric: simultaneous requests
+  limit: '1'
+  notes: Applies specifically to POST /accounts/search, POST /donations/search,
+    POST /events/search, and POST /orders/search - the most computationally
+    expensive requests in the API.
+- name: Per-Organization Isolation
+  scope: account
+  metric: requests
+  limit: independent per instance
+  notes: Every Neon CRM organization (instance) has independent rate limits;
+    load on one organization's endpoints does not affect another organization.
+policies:
+- name: Thread Pool Model
+  description: Limits are expressed as concurrent in-flight requests per
+    endpoint rather than a rolling request-per-second/minute window.
+- name: Backoff Guidance
+  description: Neon recommends sleep functions or a managed request queue in
+    client integrations that need to issue many simultaneous requests, to
+    avoid 429 Too Many Requests responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

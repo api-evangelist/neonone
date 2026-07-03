@@ -1,0 +1,243 @@
+aid: neonone
+url: https://raw.githubusercontent.com/api-evangelist/neonone/refs/heads/main/apis.yml
+name: Neon One
+kind: company
+description: Neon One is a nonprofit technology company whose flagship product,
+  Neon CRM, is a donor management and fundraising platform used by nonprofits and
+  membership associations to manage constituents, donations, memberships, events,
+  campaigns, and volunteers. Neon CRM API v2 is a RESTful, JSON-based rebuild of
+  the legacy v1 API, authenticated with HTTP Basic Auth (org ID + API key) against
+  a base URL of https://api.neoncrm.com/v2. Neon has scheduled the retirement of
+  API v1 and its legacy webhook structure for July 11, 2026.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Nonprofit
+- CRM
+- Fundraising
+- Donor Management
+- Membership Management
+- Events
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: neonone:neonone-accounts-api
+  name: Neon One Accounts API
+  tags:
+  - Accounts
+  - Constituents
+  - Addresses
+  - Contacts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/accounts/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/accounts/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Individual and organization constituent records (accounts) - create,
+    retrieve, update, and search accounts; manage linked contacts on organization
+    accounts, mailing/shipping addresses, and account custom fields.
+- aid: neonone:neonone-households-api
+  name: Neon One Households API
+  tags:
+  - Households
+  - Accounts
+  - Relationships
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Group individual accounts into households, defining the relation
+    type (e.g. spouse, child) each member holds within the household. Household
+    endpoints shipped to API v2.10 on June 7, 2025.
+- aid: neonone:neonone-donations-api
+  name: Neon One Donations API
+  tags:
+  - Donations
+  - Pledges
+  - Recurring Donations
+  - Soft Credits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/transactions/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/transactions/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: One-time donations, multi-payment pledges and pledge installments,
+    recurring donation schedules, and soft credits (crediting a donation to an
+    account other than the paying donor).
+- aid: neonone:neonone-campaigns-api
+  name: Neon One Campaigns API
+  tags:
+  - Campaigns
+  - Fundraising
+  - Peer-to-Peer
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/api-v2-resources/permissions/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/api-v2-resources/permissions/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Fundraising campaigns, including peer-to-peer/social fundraising
+    configuration, that donations, pledges, and recurring donations are attributed
+    to.
+- aid: neonone:neonone-memberships-api
+  name: Neon One Memberships API
+  tags:
+  - Memberships
+  - Membership Terms
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Membership levels, terms, and sub-members held by an account, nested
+    under the account resource - including active-status and primary-active-membership
+    fields added in API v2.11.
+- aid: neonone:neonone-events-api
+  name: Neon One Events API
+  tags:
+  - Events
+  - Registrations
+  - Tickets
+  - Attendees
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/api-v2-resources/rate-limits/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/api-v2-resources/rate-limits/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Events, event tickets, event registrations, and event attendees -
+    create and manage events and process registrations against them.
+- aid: neonone:neonone-custom-fields-api
+  name: Neon One Custom Fields API
+  tags:
+  - Custom Fields
+  - Custom Objects
+  - Configuration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/custom-objects/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/custom-objects/
+    type: Documentation
+  - url: https://developer.neoncrm.com/2025/04/14/api-v2-10-update-custom-objects/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Standard custom fields attached to accounts, donations, and events,
+    plus the full Custom Objects framework (objects, fields, form/list layouts,
+    relations, validators, and records) shipped to API v2.10 in April 2025 for
+    modeling data that does not fit Neon CRM's built-in schema.
+- aid: neonone:neonone-orders-store-api
+  name: Neon One Orders & Store API
+  tags:
+  - Orders
+  - Store
+  - Products
+  - Shopping Cart
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/2020/09/19/api-v2-1-release-notes/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/2020/09/19/api-v2-1-release-notes/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2-resources/rate-limits/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Orders that group multiple donations, memberships, and store
+    purchases into a single transaction, plus the online store catalog - products,
+    catalogs, categories, and checkout/shipping configuration.
+- aid: neonone:neonone-volunteers-api
+  name: Neon One Volunteers API
+  tags:
+  - Volunteers
+  - Opportunities
+  - Shifts
+  - Time Sheets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/
+    type: Documentation
+  - url: https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Volunteer records, volunteer groups, volunteer opportunities and
+    roles, opportunity shifts, and time sheets - added to API v2.9 in November
+    2024 and extended with role assignment during volunteer sign-up in v2.11.
+- aid: neonone:neonone-webhooks-api
+  name: Neon One Webhooks API
+  tags:
+  - Webhooks
+  - Notifications
+  - Events
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.neoncrm.com/webhooks/
+  baseURL: https://api.neoncrm.com/v2
+  properties:
+  - url: https://developer.neoncrm.com/webhooks/
+    type: Documentation
+  - url: https://developer.neoncrm.com/api-v2/
+    type: APIReference
+  - url: openapi/neonone-openapi.yml
+    type: OpenAPI
+  description: Programmatically create, list, retrieve, update, and delete
+    outbound webhook subscriptions that POST JSON notifications for create/update/delete
+    actions on Accounts, Donations, Memberships, Event Registrations, Orders, and
+    Activities, with automatic retry (up to 3 attempts, 2-second intervals) on
+    failed deliveries.
+common:
+- type: GitHubOrganization
+  url: https://github.com/neoncrm
+- type: LinkedIn
+  url: https://www.linkedin.com/company/neonone
+- type: Website
+  url: https://neonone.com/
+- type: Documentation
+  url: https://developer.neoncrm.com/
+- type: Plans
+  url: plans/neonone-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/neonone-rate-limits.yml
+- type: FinOps
+  url: finops/neonone-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

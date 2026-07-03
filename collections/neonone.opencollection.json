@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "basic": {
+        "username": "{{orgId}}",
+        "password": "{{apiKey}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Accounts", "type": "folder" },
+      "items": [
+        { "info": { "name": "List accounts.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts" }, "docs": "Retrieves accounts in bulk." },
+        { "info": { "name": "Create an account.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/accounts", "body": { "type": "json", "data": "{}" } }, "docs": "Creates a new individual or company account." },
+        { "info": { "name": "Retrieve an account.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the account." } ] }, "docs": "Retrieves an account by ID." },
+        { "info": { "name": "Update an account.", "type": "http" }, "http": { "method": "PUT", "url": "https://api.neoncrm.com/v2/accounts/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the account." } ], "body": { "type": "json", "data": "{}" } }, "docs": "Updates an account." },
+        { "info": { "name": "Search accounts.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/accounts/search", "body": { "type": "json", "data": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Account ID\", \"Email 1\"]\n}" } }, "docs": "Advanced search over accounts. Rate-limited to 1 simultaneous request." },
+        { "info": { "name": "List an account's contacts.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts/:id/contacts", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the organization account." } ] }, "docs": "Lists contacts linked to an organization account." },
+        { "info": { "name": "List an account's donations.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts/:id/donations", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the account." } ] }, "docs": "Lists donations made by an account." },
+        { "info": { "name": "List an account's memberships.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts/:id/memberships", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the account." } ] }, "docs": "Lists memberships held by the account." },
+        { "info": { "name": "Add an address to an account.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/addresses", "body": { "type": "json", "data": "{\n  \"accountId\": \"\",\n  \"addressLine1\": \"\"\n}" } }, "docs": "Creates a new address for an account." }
+      ]
+    },
+    {
+      "info": { "name": "Households", "type": "folder" },
+      "items": [
+        { "info": { "name": "List households.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/households/listHouseholds" }, "docs": "Lists households. Household endpoints shipped to API v2.10 in June 2025." },
+        { "info": { "name": "Create a household.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/households", "body": { "type": "json", "data": "{\n  \"name\": \"\"\n}" } }, "docs": "Creates a household." },
+        { "info": { "name": "Update a household.", "type": "http" }, "http": { "method": "PUT", "url": "https://api.neoncrm.com/v2/households/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the household." } ], "body": { "type": "json", "data": "{}" } }, "docs": "Updates a household." },
+        { "info": { "name": "Delete a household.", "type": "http" }, "http": { "method": "DELETE", "url": "https://api.neoncrm.com/v2/households/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the household." } ] }, "docs": "Deletes a household." },
+        { "info": { "name": "List household relation types.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/households/listRelationTypes" }, "docs": "Lists relation types (e.g. spouse, child) used within households." }
+      ]
+    },
+    {
+      "info": { "name": "Donations", "type": "folder" },
+      "items": [
+        { "info": { "name": "Create a donation.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/donations", "body": { "type": "json", "data": "{\n  \"accountId\": \"\",\n  \"amount\": 50\n}" } }, "docs": "Creates a new donation." },
+        { "info": { "name": "Retrieve a donation.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/donations/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the donation." } ] }, "docs": "Retrieves a donation by ID." },
+        { "info": { "name": "Search donations.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/donations/search", "body": { "type": "json", "data": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Donation Amount\"]\n}" } }, "docs": "Advanced search over donations. Rate-limited to 1 simultaneous request." },
+        { "info": { "name": "Create a pledge.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/pledges", "body": { "type": "json", "data": "{\n  \"accountId\": \"\",\n  \"amount\": 100\n}" } }, "docs": "Creates a pledge." },
+        { "info": { "name": "Create a pledge payment.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/pledges/:id/pledgePayments", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the pledge." } ], "body": { "type": "json", "data": "{}" } }, "docs": "Records a payment against a pledge." },
+        { "info": { "name": "List recurring donations.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/recurring" }, "docs": "Lists recurring donation schedules." },
+        { "info": { "name": "Create a recurring donation.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/recurring", "body": { "type": "json", "data": "{}" } }, "docs": "Creates a recurring donation schedule." },
+        { "info": { "name": "List soft credits.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/softCredits" }, "docs": "Lists soft credits. Added in API v2.3." }
+      ]
+    },
+    {
+      "info": { "name": "Campaigns", "type": "folder" },
+      "items": [
+        { "info": { "name": "List campaigns.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/campaigns" }, "docs": "Lists fundraising campaigns." },
+        { "info": { "name": "Create a campaign.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/campaigns", "body": { "type": "json", "data": "{\n  \"name\": \"\"\n}" } }, "docs": "Creates a campaign." },
+        { "info": { "name": "Retrieve a campaign.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/campaigns/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the campaign." } ] }, "docs": "Retrieves a campaign by ID." },
+        { "info": { "name": "Update a campaign.", "type": "http" }, "http": { "method": "PUT", "url": "https://api.neoncrm.com/v2/campaigns/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the campaign." } ], "body": { "type": "json", "data": "{}" } }, "docs": "Updates a campaign. socialFundraising.enabled must be set explicitly." }
+      ]
+    },
+    {
+      "info": { "name": "Memberships", "type": "folder" },
+      "items": [
+        { "info": { "name": "List an account's memberships.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/accounts/:id/memberships", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the account." } ] }, "docs": "Lists memberships held by the account, including isActive and primaryActiveMembership." },
+        { "info": { "name": "List sub-members on a membership.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/memberships/:memberId/subMembers?isCurrentEmployee=true", "params": [ { "name": "memberId", "value": "", "type": "path", "description": "The ID of the membership." }, { "name": "isCurrentEmployee", "value": "true", "type": "query", "description": "Filter by current-employee status." } ] }, "docs": "Lists sub-members on a membership." }
+      ]
+    },
+    {
+      "info": { "name": "Events", "type": "folder" },
+      "items": [
+        { "info": { "name": "Create an event.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/events", "body": { "type": "json", "data": "{\n  \"name\": \"\"\n}" } }, "docs": "Creates an event." },
+        { "info": { "name": "Retrieve an event.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/events/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the event." } ] }, "docs": "Retrieves an event by ID." },
+        { "info": { "name": "Search events.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/events/search", "body": { "type": "json", "data": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Event Name\"]\n}" } }, "docs": "Advanced search over events. Rate-limited to 1 simultaneous request." },
+        { "info": { "name": "List an event's attendees.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/events/:id/attendees", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the event." } ] }, "docs": "Lists attendees for an event." },
+        { "info": { "name": "Create an event registration.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/eventRegistrations", "body": { "type": "json", "data": "{\n  \"eventId\": \"\",\n  \"accountId\": \"\"\n}" } }, "docs": "Registers an account for an event." },
+        { "info": { "name": "Calculate an event registration.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/eventRegistrations/calculate", "body": { "type": "json", "data": "{}" } }, "docs": "Calculates the price of a prospective registration." }
+      ]
+    },
+    {
+      "info": { "name": "Custom Fields", "type": "folder" },
+      "items": [
+        { "info": { "name": "List custom fields.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/customFields" }, "docs": "Lists standard custom fields." },
+        { "info": { "name": "Create a custom field.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/customFields", "body": { "type": "json", "data": "{}" } }, "docs": "Creates a standard custom field." },
+        { "info": { "name": "List custom objects.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/customObjects" }, "docs": "Lists custom objects. Shipped to API v2.10 in April 2025." },
+        { "info": { "name": "Create a custom object record.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/records", "params": [ { "name": "idOrApiAlias", "value": "", "type": "path", "description": "The ID or API alias of the custom object." } ], "body": { "type": "json", "data": "{}" } }, "docs": "Creates a record of a custom object." }
+      ]
+    },
+    {
+      "info": { "name": "Orders & Store", "type": "folder" },
+      "items": [
+        { "info": { "name": "Create an order.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/orders", "body": { "type": "json", "data": "{\n  \"accountId\": \"\",\n  \"totalCharge\": 0\n}" } }, "docs": "Creates an order grouping donations, memberships, and store purchases." },
+        { "info": { "name": "Calculate an order.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/orders/calculate", "body": { "type": "json", "data": "{}" } }, "docs": "Calculates the total of a prospective order." },
+        { "info": { "name": "Search orders.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/orders/search", "body": { "type": "json", "data": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Order ID\"]\n}" } }, "docs": "Advanced search over orders. Rate-limited to 1 simultaneous request." },
+        { "info": { "name": "List store products.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/store/products" }, "docs": "Lists online store products." },
+        { "info": { "name": "List store catalogs.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/store/catalogs" }, "docs": "Lists online store catalogs." }
+      ]
+    },
+    {
+      "info": { "name": "Volunteers", "type": "folder" },
+      "items": [
+        { "info": { "name": "List volunteers.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/volunteers" }, "docs": "Lists volunteers. Added to API v2.9 in November 2024." },
+        { "info": { "name": "List volunteer opportunities.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/opportunities" }, "docs": "Lists volunteer opportunities." },
+        { "info": { "name": "Add volunteers to an opportunity.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/opportunities/:id/addVolunteers", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the volunteer opportunity." } ], "body": { "type": "json", "data": "{\n  \"volunteerIds\": [],\n  \"opportunityRoles\": []\n}" } }, "docs": "Adds volunteers to an opportunity, optionally assigning roles (API v2.11)." },
+        { "info": { "name": "List shifts for an opportunity.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/opportunities/:opportunityId/shifts", "params": [ { "name": "opportunityId", "value": "", "type": "path", "description": "The ID of the volunteer opportunity." } ] }, "docs": "Lists shifts for a volunteer opportunity." },
+        { "info": { "name": "Create a time sheet entry.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/timesheets", "body": { "type": "json", "data": "{}" } }, "docs": "Creates a volunteer time sheet entry." }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        { "info": { "name": "List webhook subscriptions.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/webhooks" }, "docs": "Lists webhook subscriptions." },
+        { "info": { "name": "Create a webhook subscription.", "type": "http" }, "http": { "method": "POST", "url": "https://api.neoncrm.com/v2/webhooks", "body": { "type": "json", "data": "{\n  \"name\": \"\",\n  \"url\": \"https://example.org/neon-webhook\",\n  \"eventTrigger\": \"createDonation\",\n  \"contentType\": \"application/json\"\n}" } }, "docs": "Creates a webhook subscription that POSTs JSON for the given event trigger." },
+        { "info": { "name": "Retrieve a webhook subscription.", "type": "http" }, "http": { "method": "GET", "url": "https://api.neoncrm.com/v2/webhooks/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the webhook subscription." } ] }, "docs": "Retrieves a webhook subscription by ID." },
+        { "info": { "name": "Delete a webhook subscription.", "type": "http" }, "http": { "method": "DELETE", "url": "https://api.neoncrm.com/v2/webhooks/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The ID of the webhook subscription." } ] }, "docs": "Deletes a webhook subscription." }
+      ]
+    }
+  ],
+  "bundled": true
+}

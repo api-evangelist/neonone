@@ -1,0 +1,145 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Neon One
+providerId: neonone
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Nonprofit
+- CRM
+- Fundraising
+- Plans
+description: >-
+  Neon CRM is sold as a per-organization software subscription with three
+  revenue-based tiers - Essentials, Impact, and Empower - priced by the
+  nonprofit's annual revenue rather than by record count or seat count. The
+  Memberships and Volunteers add-on modules each cost an additional 10% of the
+  base subscription fee, and the Events add-on module costs an additional 20%
+  of the base subscription fee. The API v2 and its webhooks are included with
+  every subscription tier at no separate charge - there is no metered or
+  per-call API fee.
+notes: >-
+  Exact revenue-tier boundaries and enterprise pricing are not published and
+  are quoted by a Neon One sales representative. Verify current tier pricing
+  on the Neon One pricing page during reconciliation.
+sources:
+- https://neonone.com/solutions/neon-crm-overview/neon-crm-pricing/
+- https://neonone.com/resources/blog/nonprofit-crm-pricing-neo/
+- https://developer.neoncrm.com/
+plans:
+- id: neonone-essentials
+  name: Neon CRM - Essentials
+  type: paid
+  description: >-
+    Entry-tier Neon CRM subscription for smaller nonprofits, starting at
+    $99/month. Includes unlimited donation forms, campaign management,
+    peer-to-peer fundraising, and personalized email/text outreach, plus full
+    access to the API v2 and webhooks.
+  entries:
+  - label: Monthly Subscription
+    name: essentials_subscription
+    type: flat
+    metric: organization
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: starting at $99/month (revenue-based)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Donation Forms
+  - name: Campaign Management
+  - name: Peer-to-Peer Fundraising
+  - name: Email and Text Outreach
+  - name: API v2 and Webhooks
+- id: neonone-impact
+  name: Neon CRM - Impact
+  type: paid
+  description: >-
+    Mid-tier Neon CRM subscription starting at $209/month, for growing
+    nonprofits needing additional automation and reporting capability on top
+    of the Essentials feature set.
+  entries:
+  - label: Monthly Subscription
+    name: impact_subscription
+    type: flat
+    metric: organization
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: starting at $209/month (revenue-based)
+    userMultiplied: false
+  elements:
+  - name: Everything in Essentials
+  - name: Additional Automation
+  - name: Additional Reporting
+- id: neonone-empower
+  name: Neon CRM - Empower
+  type: paid
+  description: >-
+    Top-tier Neon CRM subscription starting at $409/month, for larger
+    nonprofits needing the most advanced fundraising, reporting, and
+    integration capability.
+  entries:
+  - label: Monthly Subscription
+    name: empower_subscription
+    type: flat
+    metric: organization
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: starting at $409/month (revenue-based)
+    userMultiplied: false
+  elements:
+  - name: Everything in Impact
+  - name: Advanced Fundraising Tools
+  - name: Advanced Reporting
+- id: neonone-addon-modules
+  name: Add-On Modules
+  type: usage
+  description: >-
+    Optional modules layered on top of any subscription tier, each billed as
+    a percentage surcharge on the base subscription fee rather than a flat
+    price.
+  entries:
+  - label: Memberships Module
+    name: addon_memberships
+    type: flat
+    metric: percent_of_subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 10
+    price: +10% of base subscription fee
+    userMultiplied: false
+  - label: Volunteers Module
+    name: addon_volunteers
+    type: flat
+    metric: percent_of_subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 10
+    price: +10% of base subscription fee
+    userMultiplied: false
+  - label: Events Module
+    name: addon_events
+    type: flat
+    metric: percent_of_subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 20
+    price: +20% of base subscription fee
+    userMultiplied: false
+  elements:
+  - name: Memberships API and UI
+  - name: Volunteers API and UI
+  - name: Events API and UI
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

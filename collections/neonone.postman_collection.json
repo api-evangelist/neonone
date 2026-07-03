@@ -1,0 +1,564 @@
+{
+  "info": {
+    "name": "Neon CRM API v2",
+    "description": "Neon One's Neon CRM API v2 - accounts, households, donations, campaigns, memberships, events, custom fields, orders/store, volunteers, and webhooks. Base URL: https://api.neoncrm.com/v2 (Cloud/Sandbox) or https://trial.z2systems.com/v2 (Trial). All requests use HTTP Basic Authentication with the Org ID as username and an API key as password.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "{{orgId}}", "type": "string" },
+      { "key": "password", "value": "{{apiKey}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.neoncrm.com/v2", "type": "string" },
+    { "key": "orgId", "value": "", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts", "host": ["{{baseUrl}}"], "path": ["accounts"] },
+            "description": "Retrieves accounts in bulk."
+          }
+        },
+        {
+          "name": "Create an account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"individualAccount\": {\n    \"primaryContact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email1\": \"jane@example.org\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/accounts", "host": ["{{baseUrl}}"], "path": ["accounts"] },
+            "description": "Creates a new individual or company account."
+          }
+        },
+        {
+          "name": "Retrieve an account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/:id", "host": ["{{baseUrl}}"], "path": ["accounts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves an account by ID."
+          }
+        },
+        {
+          "name": "Update an account",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/accounts/:id", "host": ["{{baseUrl}}"], "path": ["accounts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an account."
+          }
+        },
+        {
+          "name": "Search accounts",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"searchFields\": [\n    { \"field\": \"Email\", \"operator\": \"EQUAL\", \"value\": \"jane@example.org\" }\n  ],\n  \"outputFields\": [\"Account ID\", \"First Name\", \"Last Name\", \"Email 1\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/accounts/search", "host": ["{{baseUrl}}"], "path": ["accounts", "search"] },
+            "description": "Advanced search over accounts. Rate-limited to 1 simultaneous request."
+          }
+        },
+        {
+          "name": "List an account's contacts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/:id/contacts", "host": ["{{baseUrl}}"], "path": ["accounts", ":id", "contacts"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists contacts linked to an organization account."
+          }
+        },
+        {
+          "name": "List an account's donations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/:id/donations", "host": ["{{baseUrl}}"], "path": ["accounts", ":id", "donations"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists donations made by an account."
+          }
+        },
+        {
+          "name": "List an account's memberships",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/:id/memberships", "host": ["{{baseUrl}}"], "path": ["accounts", ":id", "memberships"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists memberships held by the account, including isActive and primaryActiveMembership (API v2.11)."
+          }
+        },
+        {
+          "name": "Add an address to an account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"accountId\": \"\",\n  \"addressLine1\": \"123 Main St\",\n  \"city\": \"Chicago\",\n  \"zipCode\": \"60601\"\n}" },
+            "url": { "raw": "{{baseUrl}}/addresses", "host": ["{{baseUrl}}"], "path": ["addresses"] },
+            "description": "Creates a new address for an account."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Households",
+      "item": [
+        {
+          "name": "List households",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/households/listHouseholds", "host": ["{{baseUrl}}"], "path": ["households", "listHouseholds"] },
+            "description": "Lists households. Shipped to API v2.10 in June 2025."
+          }
+        },
+        {
+          "name": "Create a household",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"The Doe Household\"\n}" },
+            "url": { "raw": "{{baseUrl}}/households", "host": ["{{baseUrl}}"], "path": ["households"] },
+            "description": "Creates a household."
+          }
+        },
+        {
+          "name": "Update a household",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/households/:id", "host": ["{{baseUrl}}"], "path": ["households", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a household."
+          }
+        },
+        {
+          "name": "Delete a household",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/households/:id", "host": ["{{baseUrl}}"], "path": ["households", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Deletes a household."
+          }
+        },
+        {
+          "name": "List household relation types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/households/listRelationTypes", "host": ["{{baseUrl}}"], "path": ["households", "listRelationTypes"] },
+            "description": "Lists relation types (e.g. spouse, child) used within households."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Donations",
+      "item": [
+        {
+          "name": "Create a donation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"accountId\": \"\",\n  \"amount\": 50\n}" },
+            "url": { "raw": "{{baseUrl}}/donations", "host": ["{{baseUrl}}"], "path": ["donations"] },
+            "description": "Creates a new donation."
+          }
+        },
+        {
+          "name": "Retrieve a donation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/donations/:id", "host": ["{{baseUrl}}"], "path": ["donations", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a donation by ID."
+          }
+        },
+        {
+          "name": "Search donations",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Donation Amount\", \"Donation Date\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/donations/search", "host": ["{{baseUrl}}"], "path": ["donations", "search"] },
+            "description": "Advanced search over donations. Rate-limited to 1 simultaneous request."
+          }
+        },
+        {
+          "name": "Create a pledge",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"accountId\": \"\",\n  \"amount\": 100\n}" },
+            "url": { "raw": "{{baseUrl}}/pledges", "host": ["{{baseUrl}}"], "path": ["pledges"] },
+            "description": "Creates a pledge."
+          }
+        },
+        {
+          "name": "Create a pledge payment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/pledges/:id/pledgePayments", "host": ["{{baseUrl}}"], "path": ["pledges", ":id", "pledgePayments"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Records a payment against a pledge."
+          }
+        },
+        {
+          "name": "List recurring donations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/recurring", "host": ["{{baseUrl}}"], "path": ["recurring"] },
+            "description": "Lists recurring donation schedules."
+          }
+        },
+        {
+          "name": "Create a recurring donation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/recurring", "host": ["{{baseUrl}}"], "path": ["recurring"] },
+            "description": "Creates a recurring donation schedule."
+          }
+        },
+        {
+          "name": "List soft credits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/softCredits", "host": ["{{baseUrl}}"], "path": ["softCredits"] },
+            "description": "Lists soft credits. Added in API v2.3."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Campaigns",
+      "item": [
+        {
+          "name": "List campaigns",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/campaigns", "host": ["{{baseUrl}}"], "path": ["campaigns"] },
+            "description": "Lists fundraising campaigns."
+          }
+        },
+        {
+          "name": "Create a campaign",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Annual Fund 2026\"\n}" },
+            "url": { "raw": "{{baseUrl}}/campaigns", "host": ["{{baseUrl}}"], "path": ["campaigns"] },
+            "description": "Creates a campaign."
+          }
+        },
+        {
+          "name": "Retrieve a campaign",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/campaigns/:id", "host": ["{{baseUrl}}"], "path": ["campaigns", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a campaign by ID."
+          }
+        },
+        {
+          "name": "Update a campaign",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"socialFundraising\": {\n    \"enabled\": true\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/campaigns/:id", "host": ["{{baseUrl}}"], "path": ["campaigns", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a campaign. socialFundraising.enabled must be set explicitly or peer-to-peer fundraising is disabled."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memberships",
+      "item": [
+        {
+          "name": "List an account's memberships",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/:id/memberships", "host": ["{{baseUrl}}"], "path": ["accounts", ":id", "memberships"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists memberships held by the account."
+          }
+        },
+        {
+          "name": "List sub-members on a membership",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/memberships/:memberId/subMembers?isCurrentEmployee=true", "host": ["{{baseUrl}}"], "path": ["memberships", ":memberId", "subMembers"], "query": [{ "key": "isCurrentEmployee", "value": "true" }], "variable": [{ "key": "memberId", "value": "" }] },
+            "description": "Lists sub-members on a membership. isCurrentEmployee filter added in API v2.10."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Create an event",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Annual Gala\"\n}" },
+            "url": { "raw": "{{baseUrl}}/events", "host": ["{{baseUrl}}"], "path": ["events"] },
+            "description": "Creates an event."
+          }
+        },
+        {
+          "name": "Retrieve an event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/events/:id", "host": ["{{baseUrl}}"], "path": ["events", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves an event by ID."
+          }
+        },
+        {
+          "name": "Search events",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Event Name\", \"Event Start Date\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/events/search", "host": ["{{baseUrl}}"], "path": ["events", "search"] },
+            "description": "Advanced search over events. Rate-limited to 1 simultaneous request."
+          }
+        },
+        {
+          "name": "List an event's attendees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/events/:id/attendees", "host": ["{{baseUrl}}"], "path": ["events", ":id", "attendees"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists attendees for an event."
+          }
+        },
+        {
+          "name": "Create an event registration",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"eventId\": \"\",\n  \"accountId\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/eventRegistrations", "host": ["{{baseUrl}}"], "path": ["eventRegistrations"] },
+            "description": "Registers an account for an event."
+          }
+        },
+        {
+          "name": "Calculate an event registration",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/eventRegistrations/calculate", "host": ["{{baseUrl}}"], "path": ["eventRegistrations", "calculate"] },
+            "description": "Calculates the price of a prospective registration."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom Fields",
+      "item": [
+        {
+          "name": "List custom fields",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customFields", "host": ["{{baseUrl}}"], "path": ["customFields"] },
+            "description": "Lists standard custom fields."
+          }
+        },
+        {
+          "name": "Create a custom field",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/customFields", "host": ["{{baseUrl}}"], "path": ["customFields"] },
+            "description": "Creates a standard custom field."
+          }
+        },
+        {
+          "name": "List custom objects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customObjects", "host": ["{{baseUrl}}"], "path": ["customObjects"] },
+            "description": "Lists custom objects. Shipped to API v2.10 in April 2025."
+          }
+        },
+        {
+          "name": "Create a custom object record",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/customObjects/:idOrApiAlias/records", "host": ["{{baseUrl}}"], "path": ["customObjects", ":idOrApiAlias", "records"], "variable": [{ "key": "idOrApiAlias", "value": "" }] },
+            "description": "Creates a record of a custom object."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders & Store",
+      "item": [
+        {
+          "name": "Create an order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"accountId\": \"\",\n  \"totalCharge\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "description": "Creates an order grouping donations, memberships, and store purchases."
+          }
+        },
+        {
+          "name": "Calculate an order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/orders/calculate", "host": ["{{baseUrl}}"], "path": ["orders", "calculate"] },
+            "description": "Calculates the total of a prospective order."
+          }
+        },
+        {
+          "name": "Search orders",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"searchFields\": [],\n  \"outputFields\": [\"Order ID\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/orders/search", "host": ["{{baseUrl}}"], "path": ["orders", "search"] },
+            "description": "Advanced search over orders. Rate-limited to 1 simultaneous request."
+          }
+        },
+        {
+          "name": "List store products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/store/products", "host": ["{{baseUrl}}"], "path": ["store", "products"] },
+            "description": "Lists online store products."
+          }
+        },
+        {
+          "name": "List store catalogs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/store/catalogs", "host": ["{{baseUrl}}"], "path": ["store", "catalogs"] },
+            "description": "Lists online store catalogs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Volunteers",
+      "item": [
+        {
+          "name": "List volunteers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/volunteers", "host": ["{{baseUrl}}"], "path": ["volunteers"] },
+            "description": "Lists volunteers. Added to API v2.9 in November 2024."
+          }
+        },
+        {
+          "name": "List volunteer opportunities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/opportunities", "host": ["{{baseUrl}}"], "path": ["opportunities"] },
+            "description": "Lists volunteer opportunities."
+          }
+        },
+        {
+          "name": "Add volunteers to an opportunity",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"volunteerIds\": [],\n  \"opportunityRoles\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/opportunities/:id/addVolunteers", "host": ["{{baseUrl}}"], "path": ["opportunities", ":id", "addVolunteers"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Adds volunteers to an opportunity, optionally assigning roles (opportunityRoles added in API v2.11)."
+          }
+        },
+        {
+          "name": "List shifts for an opportunity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/opportunities/:opportunityId/shifts", "host": ["{{baseUrl}}"], "path": ["opportunities", ":opportunityId", "shifts"], "variable": [{ "key": "opportunityId", "value": "" }] },
+            "description": "Lists shifts for a volunteer opportunity."
+          }
+        },
+        {
+          "name": "Create a time sheet entry",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/timesheets", "host": ["{{baseUrl}}"], "path": ["timesheets"] },
+            "description": "Creates a volunteer time sheet entry."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhook subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] },
+            "description": "Lists webhook subscriptions."
+          }
+        },
+        {
+          "name": "Create a webhook subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"New Donation Notifier\",\n  \"url\": \"https://example.org/neon-webhook\",\n  \"eventTrigger\": \"createDonation\",\n  \"contentType\": \"application/json\"\n}" },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] },
+            "description": "Creates a webhook subscription that POSTs JSON for the given event trigger."
+          }
+        },
+        {
+          "name": "Retrieve a webhook subscription",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/:id", "host": ["{{baseUrl}}"], "path": ["webhooks", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a webhook subscription by ID."
+          }
+        },
+        {
+          "name": "Delete a webhook subscription",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/:id", "host": ["{{baseUrl}}"], "path": ["webhooks", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Deletes a webhook subscription."
+          }
+        }
+      ]
+    }
+  ]
+}
