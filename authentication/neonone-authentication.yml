@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/neonone-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password
+    is an API key generated for a system user under Settings > User Management.
+  sources:
+  - openapi/neonone-openapi.yml

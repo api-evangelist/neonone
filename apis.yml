@@ -224,6 +224,12 @@ apis:
     Activities, with automatic retry (up to 3 attempts, 2-second intervals) on
     failed deliveries.
 common:
+- type: TrustCenter
+  url: security/neonone-trust-center.yml
+- type: DomainSecurity
+  url: security/neonone-domain-security.yml
+- type: Authentication
+  url: authentication/neonone-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/neoncrm
 - type: LinkedIn
