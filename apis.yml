@@ -224,6 +224,8 @@ apis:
     Activities, with automatic retry (up to 3 attempts, 2-second intervals) on
     failed deliveries.
 common:
+- type: AgenticAccess
+  url: agentic-access/neonone-agentic-access.yml
 - type: TrustCenter
   url: security/neonone-trust-center.yml
 - type: DomainSecurity
