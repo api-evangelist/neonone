@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Properties API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Properties
+  description: Reference and lookup data used across other resources.
+paths:
+  /payments/creditCardTypes:
+    get:
+      operationId: listCreditCardTypes
+      tags:
+      - Properties
+      summary: List accepted credit card types
+      responses:
+        '200':
+          description: A list of credit card types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /payments/tenders:
+    get:
+      operationId: listPaymentTenders
+      tags:
+      - Properties
+      summary: List payment tender types
+      description: Includes DAFpay and ACSS tender types added in API v2.10.
+      responses:
+        '200':
+          description: A list of tender types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /payments/processorSettings:
+    get:
+      operationId: getPaymentProcessorSettings
+      tags:
+      - Properties
+      summary: Retrieve payment processor settings
+      responses:
+        '200':
+          description: Payment processor settings, including merchant ID for ACH.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /properties/funds:
+    get:
+      operationId: listFunds
+      tags:
+      - Properties
+      summary: List funds
+      responses:
+        '200':
+          description: A list of funds.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /properties/purposes:
+    get:
+      operationId: listPurposes
+      tags:
+      - Properties
+      summary: List purposes
+      responses:
+        '200':
+          description: A list of purposes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /properties/solicitationMethods:
+    get:
+      operationId: listSolicitationMethods
+      tags:
+      - Properties
+      summary: List solicitation methods
+      responses:
+        '200':
+          description: A list of solicitation methods.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /properties/countries:
+    get:
+      operationId: listCountries
+      tags:
+      - Properties
+      summary: List countries
+      responses:
+        '200':
+          description: A list of countries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /properties/states:
+    get:
+      operationId: listStates
+      tags:
+      - Properties
+      summary: List states/provinces
+      responses:
+        '200':
+          description: A list of states/provinces.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

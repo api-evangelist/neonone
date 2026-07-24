@@ -1,0 +1,702 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Accounts
+  description: Individual and organization constituent records, contacts, and addresses.
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      tags:
+      - Accounts
+      summary: List accounts
+      description: Retrieves accounts in bulk, functioning similarly to the v1 keyword search. Added in API v2.3.
+      parameters:
+      - $ref: '#/components/parameters/CurrentPage'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAccount
+      tags:
+      - Accounts
+      summary: Create an account
+      description: Creates a new individual or company account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
+      responses:
+        '200':
+          description: The created account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /accounts/{id}:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    get:
+      operationId: getAccount
+      tags:
+      - Accounts
+      summary: Retrieve an account
+      description: Retrieves an individual or organization account by ID. Returns 222 Merged Account if the account was merged into another.
+      responses:
+        '200':
+          description: The requested account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '222':
+          description: The account has been merged into another account.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAccount
+      tags:
+      - Accounts
+      summary: Update an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
+      responses:
+        '200':
+          description: The updated account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/search:
+    post:
+      operationId: searchAccounts
+      tags:
+      - Accounts
+      summary: Search accounts
+      description: Advanced search over accounts using searchFields and outputFields. Rate-limited to 1 simultaneous request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Matching accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /accounts/search/searchFields:
+    get:
+      operationId: listAccountSearchFields
+      tags:
+      - Accounts
+      summary: List account search fields
+      responses:
+        '200':
+          description: Fields usable as accounts/search criteria.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /accounts/search/outputFields:
+    get:
+      operationId: listAccountOutputFields
+      tags:
+      - Accounts
+      summary: List account output fields
+      responses:
+        '200':
+          description: Fields returnable from accounts/search.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /accounts/link:
+    post:
+      operationId: linkAccounts
+      tags:
+      - Accounts
+      summary: Link two accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Link result.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/unlink:
+    post:
+      operationId: unlinkAccounts
+      tags:
+      - Accounts
+      summary: Unlink two previously merged accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Unlink result.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{id}/contacts:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    get:
+      operationId: listAccountContacts
+      tags:
+      - Accounts
+      summary: List contacts on an organization account
+      responses:
+        '200':
+          description: A list of contacts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contacts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addAccountContact
+      tags:
+      - Accounts
+      summary: Add a contact to an organization account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '200':
+          description: The created contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{id}/contacts/{contactId}:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - name: contactId
+      in: path
+      required: true
+      description: The ID of the contact.
+      schema:
+        type: string
+    get:
+      operationId: getAccountContact
+      tags:
+      - Accounts
+      summary: Retrieve a contact
+      responses:
+        '200':
+          description: The requested contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAccountContact
+      tags:
+      - Accounts
+      summary: Update a contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '200':
+          description: The updated contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchAccountContact
+      tags:
+      - Accounts
+      summary: Partially update a contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAccountContact
+      tags:
+      - Accounts
+      summary: Remove a contact from an organization account
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{id}/donations:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    get:
+      operationId: listAccountDonations
+      tags:
+      - Accounts
+      summary: List an account's donations
+      responses:
+        '200':
+          description: A list of donations for the account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  donations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Donation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{id}/pledges:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    get:
+      operationId: listAccountPledges
+      tags:
+      - Accounts
+      summary: List an account's pledges
+      description: Includes the pledgeStatus (open or closed) field added in API v2.11.
+      responses:
+        '200':
+          description: A list of pledges for the account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pledges:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pledge'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /addresses:
+    post:
+      operationId: createAddress
+      tags:
+      - Accounts
+      summary: Add an address to an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '200':
+          description: The created address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /addresses/{addressId}:
+    parameters:
+    - name: addressId
+      in: path
+      required: true
+      description: The ID of the address.
+      schema:
+        type: string
+    get:
+      operationId: getAddress
+      tags:
+      - Accounts
+      summary: Retrieve an address
+      responses:
+        '200':
+          description: The requested address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAddress
+      tags:
+      - Accounts
+      summary: Update an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '200':
+          description: The updated address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchAddress
+      tags:
+      - Accounts
+      summary: Partially update an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAddress
+      tags:
+      - Accounts
+      summary: Remove an address
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        default: 50
+    AccountId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the account.
+      schema:
+        type: string
+    CurrentPage:
+      name: currentPage
+      in: query
+      required: false
+      description: Zero-indexed page number to retrieve.
+      schema:
+        type: integer
+        default: 0
+  schemas:
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    AccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
+          type: object
+          additionalProperties: true
+    SearchRequest:
+      type: object
+      required:
+      - searchFields
+      - outputFields
+      properties:
+        searchFields:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              operator:
+                type: string
+              value:
+                type: string
+        outputFields:
+          type: array
+          items:
+            type: string
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+            pageSize:
+              type: integer
+    Address:
+      type: object
+      properties:
+        addressId:
+          type: string
+        accountId:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        stateProvince:
+          type: object
+          additionalProperties: true
+        zipCode:
+          type: string
+        country:
+          type: object
+          additionalProperties: true
+        isPrimaryAddress:
+          type: boolean
+      additionalProperties: true
+    Contact:
+      type: object
+      properties:
+        contactId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email1:
+          type: string
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    DonationInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        campaign:
+          type: object
+          additionalProperties: true
+        fund:
+          type: object
+          additionalProperties: true
+        purpose:
+          type: object
+          additionalProperties: true
+        tribute:
+          type: object
+          additionalProperties: true
+        solicitor:
+          type: array
+          items:
+            type: object
+            properties:
+              accountId:
+                type: string
+              solicitorName:
+                type: string
+      additionalProperties: true
+    Account:
+      allOf:
+      - $ref: '#/components/schemas/AccountInput'
+      - type: object
+        properties:
+          accountId:
+            type: string
+          accountCustomFields:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+    AccountInput:
+      type: object
+      properties:
+        individualAccount:
+          type: object
+          additionalProperties: true
+        companyAccount:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+  responses:
+    Forbidden:
+      description: The authenticated API user lacks the permission required for this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

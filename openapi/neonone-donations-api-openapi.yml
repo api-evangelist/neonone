@@ -1,0 +1,725 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Donations API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Donations
+  description: Donations, pledges, pledge payments, recurring donations, and soft credits.
+paths:
+  /donations:
+    post:
+      operationId: createDonation
+      tags:
+      - Donations
+      summary: Create a donation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DonationInput'
+      responses:
+        '200':
+          description: The created donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /donations/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the donation.
+      schema:
+        type: string
+    get:
+      operationId: getDonation
+      tags:
+      - Donations
+      summary: Retrieve a donation
+      responses:
+        '200':
+          description: The requested donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDonation
+      tags:
+      - Donations
+      summary: Update a donation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DonationInput'
+      responses:
+        '200':
+          description: The updated donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchDonation
+      tags:
+      - Donations
+      summary: Partially update a donation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDonation
+      tags:
+      - Donations
+      summary: Delete a donation
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /donations/search:
+    post:
+      operationId: searchDonations
+      tags:
+      - Donations
+      summary: Search donations
+      description: Rate-limited to 1 simultaneous request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Matching donations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  searchResults:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /pledges:
+    post:
+      operationId: createPledge
+      tags:
+      - Donations
+      summary: Create a pledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PledgeInput'
+      responses:
+        '200':
+          description: The created pledge.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pledge'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pledges/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the pledge.
+      schema:
+        type: string
+    get:
+      operationId: getPledge
+      tags:
+      - Donations
+      summary: Retrieve a pledge
+      responses:
+        '200':
+          description: The requested pledge.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pledge'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePledge
+      tags:
+      - Donations
+      summary: Update a pledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PledgeInput'
+      responses:
+        '200':
+          description: The updated pledge.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pledge'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePledge
+      tags:
+      - Donations
+      summary: Delete a pledge
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pledges/{id}/pledgePayments:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the pledge.
+      schema:
+        type: string
+    get:
+      operationId: listPledgePayments
+      tags:
+      - Donations
+      summary: List payments made against a pledge
+      responses:
+        '200':
+          description: A list of pledge payments.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pledgePayments:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPledgePayment
+      tags:
+      - Donations
+      summary: Create a payment against a pledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created pledge payment.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pledges/{id}/pledgePayments/{paymentId}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the pledge.
+      schema:
+        type: string
+    - name: paymentId
+      in: path
+      required: true
+      description: The ID of the pledge payment.
+      schema:
+        type: string
+    get:
+      operationId: getPledgePayment
+      tags:
+      - Donations
+      summary: Retrieve a pledge payment
+      responses:
+        '200':
+          description: The requested pledge payment.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePledgePayment
+      tags:
+      - Donations
+      summary: Delete a pledge payment
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pledges/{pledgeId}/installments:
+    parameters:
+    - name: pledgeId
+      in: path
+      required: true
+      description: The ID of the pledge.
+      schema:
+        type: string
+    post:
+      operationId: createPledgeInstallment
+      tags:
+      - Donations
+      summary: Create a pledge installment
+      description: Added in API v2.3.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created installment.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pledges/{pledgeId}/installments/{id}:
+    parameters:
+    - name: pledgeId
+      in: path
+      required: true
+      description: The ID of the pledge.
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      description: The ID of the installment.
+      schema:
+        type: string
+    get:
+      operationId: getPledgeInstallment
+      tags:
+      - Donations
+      summary: Retrieve a pledge installment
+      responses:
+        '200':
+          description: The requested installment.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePledgeInstallment
+      tags:
+      - Donations
+      summary: Update a pledge installment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated installment.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePledgeInstallment
+      tags:
+      - Donations
+      summary: Delete a pledge installment
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recurring:
+    get:
+      operationId: listRecurringDonations
+      tags:
+      - Donations
+      summary: List recurring donation schedules
+      responses:
+        '200':
+          description: A list of recurring donations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recurringDonations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecurringDonation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createRecurringDonation
+      tags:
+      - Donations
+      summary: Create a recurring donation schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecurringDonation'
+      responses:
+        '200':
+          description: The created recurring donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDonation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /recurring/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the recurring donation.
+      schema:
+        type: string
+    get:
+      operationId: getRecurringDonation
+      tags:
+      - Donations
+      summary: Retrieve a recurring donation schedule
+      responses:
+        '200':
+          description: The requested recurring donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDonation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateRecurringDonation
+      tags:
+      - Donations
+      summary: Update a recurring donation schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecurringDonation'
+      responses:
+        '200':
+          description: The updated recurring donation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDonation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteRecurringDonation
+      tags:
+      - Donations
+      summary: Cancel/delete a recurring donation schedule
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /softCredits:
+    get:
+      operationId: listSoftCredits
+      tags:
+      - Donations
+      summary: List soft credits
+      description: Added in API v2.3.
+      responses:
+        '200':
+          description: A list of soft credits.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  softCredits:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSoftCredit
+      tags:
+      - Donations
+      summary: Create a soft credit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created soft credit.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /softCredits/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the soft credit.
+      schema:
+        type: string
+    get:
+      operationId: getSoftCredit
+      tags:
+      - Donations
+      summary: Retrieve a soft credit
+      responses:
+        '200':
+          description: The requested soft credit.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSoftCredit
+      tags:
+      - Donations
+      summary: Delete a soft credit
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    RecurringDonation:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        creditCardOnline:
+          type: object
+          additionalProperties: true
+        ach:
+          type: object
+          additionalProperties: true
+        frequency:
+          type: string
+      additionalProperties: true
+    SearchRequest:
+      type: object
+      required:
+      - searchFields
+      - outputFields
+      properties:
+        searchFields:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              operator:
+                type: string
+              value:
+                type: string
+        outputFields:
+          type: array
+          items:
+            type: string
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+            pageSize:
+              type: integer
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    DonationInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        campaign:
+          type: object
+          additionalProperties: true
+        fund:
+          type: object
+          additionalProperties: true
+        purpose:
+          type: object
+          additionalProperties: true
+        tribute:
+          type: object
+          additionalProperties: true
+        solicitor:
+          type: array
+          items:
+            type: object
+            properties:
+              accountId:
+                type: string
+              solicitorName:
+                type: string
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

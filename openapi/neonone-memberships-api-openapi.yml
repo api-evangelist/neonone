@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Memberships API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Memberships
+  description: Membership levels and terms held by an account.
+paths:
+  /accounts/{id}/memberships:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    get:
+      operationId: listAccountMemberships
+      tags:
+      - Memberships
+      summary: List an account's memberships
+      description: Includes isActive and primaryActiveMembership fields added in API v2.11.
+      responses:
+        '200':
+          description: A list of memberships held by the account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  memberships:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Membership'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /memberships/{memberId}/subMembers:
+    parameters:
+    - name: memberId
+      in: path
+      required: true
+      description: The ID of the membership.
+      schema:
+        type: string
+    get:
+      operationId: listMembershipSubMembers
+      tags:
+      - Memberships
+      summary: List sub-members on a membership
+      description: Includes the isCurrentEmployee query parameter added in API v2.10.
+      parameters:
+      - name: isCurrentEmployee
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: A list of sub-members.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subMembers:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Membership:
+      type: object
+      properties:
+        membershipId:
+          type: string
+        membershipLevel:
+          type: object
+          additionalProperties: true
+        termStartDate:
+          type: string
+          format: date
+        termEndDate:
+          type: string
+          format: date
+        isActive:
+          type: boolean
+        primaryActiveMembership:
+          type: boolean
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the account.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

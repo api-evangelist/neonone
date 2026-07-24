@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Store API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Store
+  description: Online store products, catalogs, and categories.
+paths:
+  /store/products:
+    get:
+      operationId: listStoreProducts
+      tags:
+      - Store
+      summary: List online store products
+      description: Introduced in API v2.1.
+      responses:
+        '200':
+          description: A list of store products.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoreProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /store/products/{productId}:
+    parameters:
+    - name: productId
+      in: path
+      required: true
+      description: The ID of the product.
+      schema:
+        type: string
+    get:
+      operationId: getStoreProduct
+      tags:
+      - Store
+      summary: Retrieve an online store product
+      responses:
+        '200':
+          description: The requested product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreProduct'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /store/catalogs:
+    get:
+      operationId: listStoreCatalogs
+      tags:
+      - Store
+      summary: List online store catalogs
+      responses:
+        '200':
+          description: A list of store catalogs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /store/categories:
+    get:
+      operationId: listStoreCategories
+      tags:
+      - Store
+      summary: List online store categories
+      responses:
+        '200':
+          description: A list of store categories.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    StoreProduct:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        catalogs:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

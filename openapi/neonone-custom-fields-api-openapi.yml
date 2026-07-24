@@ -1,0 +1,451 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Custom Fields API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Custom Fields
+  description: Standard custom fields and the Custom Objects framework.
+paths:
+  /customFields:
+    get:
+      operationId: listCustomFields
+      tags:
+      - Custom Fields
+      summary: List standard custom fields
+      description: Schema updated in API v2.10 with displayName and validated data types.
+      parameters:
+      - name: isEventSpecificField
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: attendeeQuestion
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: A list of custom fields.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomField
+      tags:
+      - Custom Fields
+      summary: Create a standard custom field
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomField'
+      responses:
+        '200':
+          description: The created custom field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customFields/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the custom field.
+      schema:
+        type: string
+    get:
+      operationId: getCustomField
+      tags:
+      - Custom Fields
+      summary: Retrieve a standard custom field
+      responses:
+        '200':
+          description: The requested custom field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomField'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomField
+      tags:
+      - Custom Fields
+      summary: Update a standard custom field
+      description: Omitting an existing option from the request removes it (fixed in API v2.10).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomField'
+      responses:
+        '200':
+          description: The updated custom field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomField'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customObjects:
+    get:
+      operationId: listCustomObjects
+      tags:
+      - Custom Fields
+      summary: List custom objects
+      description: Custom Objects framework shipped to API v2.10 on April 12, 2025.
+      responses:
+        '200':
+          description: A list of custom objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomObject
+      tags:
+      - Custom Fields
+      summary: Create a custom object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomObject'
+      responses:
+        '200':
+          description: The created custom object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customObjects/{idOrApiAlias}:
+    parameters:
+    - $ref: '#/components/parameters/CustomObjectIdOrApiAlias'
+    get:
+      operationId: getCustomObject
+      tags:
+      - Custom Fields
+      summary: Retrieve a custom object
+      responses:
+        '200':
+          description: The requested custom object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomObject
+      tags:
+      - Custom Fields
+      summary: Update a custom object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomObject'
+      responses:
+        '200':
+          description: The updated custom object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchCustomObject
+      tags:
+      - Custom Fields
+      summary: Partially update a custom object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated custom object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomObject
+      tags:
+      - Custom Fields
+      summary: Delete a custom object
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customObjects/{idOrApiAlias}/fields:
+    parameters:
+    - $ref: '#/components/parameters/CustomObjectIdOrApiAlias'
+    get:
+      operationId: listCustomObjectFields
+      tags:
+      - Custom Fields
+      summary: List fields on a custom object
+      responses:
+        '200':
+          description: A list of custom object fields.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomObjectField
+      tags:
+      - Custom Fields
+      summary: Create a field on a custom object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created field.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customObjects/{idOrApiAlias}/records:
+    parameters:
+    - $ref: '#/components/parameters/CustomObjectIdOrApiAlias'
+    get:
+      operationId: listCustomObjectRecords
+      tags:
+      - Custom Fields
+      summary: List records of a custom object
+      responses:
+        '200':
+          description: A list of custom object records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomObjectRecord
+      tags:
+      - Custom Fields
+      summary: Create a record of a custom object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created record.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customObjects/{idOrApiAlias}/records/{id}:
+    parameters:
+    - $ref: '#/components/parameters/CustomObjectIdOrApiAlias'
+    - name: id
+      in: path
+      required: true
+      description: The ID of the record.
+      schema:
+        type: string
+    get:
+      operationId: getCustomObjectRecord
+      tags:
+      - Custom Fields
+      summary: Retrieve a record of a custom object
+      responses:
+        '200':
+          description: The requested record.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomObjectRecord
+      tags:
+      - Custom Fields
+      summary: Delete a record of a custom object
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customObjects/masterDetailObjects:
+    get:
+      operationId: listMasterDetailObjects
+      tags:
+      - Custom Fields
+      summary: List master/detail custom objects
+      responses:
+        '200':
+          description: A list of master/detail custom objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /customObjects/lookUpObjects:
+    get:
+      operationId: listLookUpObjects
+      tags:
+      - Custom Fields
+      summary: List lookup custom objects
+      responses:
+        '200':
+          description: A list of lookup custom objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  schemas:
+    CustomObject:
+      type: object
+      properties:
+        id:
+          type: string
+        apiAlias:
+          type: string
+        name:
+          type: string
+        objectType:
+          type: string
+          enum:
+          - masterDetail
+          - lookUp
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        dataType:
+          type: string
+          enum:
+          - Whole Number
+          - Decimal
+          - Currency
+          - Date
+          - Text
+          - Email
+        component:
+          type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CustomObjectIdOrApiAlias:
+      name: idOrApiAlias
+      in: path
+      required: true
+      description: The ID or API alias of the custom object.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

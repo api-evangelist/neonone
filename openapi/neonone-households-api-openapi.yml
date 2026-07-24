@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Households API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Households
+  description: Grouping of individual accounts into households with relation types.
+paths:
+  /households:
+    post:
+      operationId: createHousehold
+      tags:
+      - Households
+      summary: Create a household
+      description: Household endpoints shipped to API v2.10 on June 7, 2025.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HouseholdInput'
+      responses:
+        '200':
+          description: The created household.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Household'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /households/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the household.
+      schema:
+        type: string
+    put:
+      operationId: updateHousehold
+      tags:
+      - Households
+      summary: Update a household
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HouseholdInput'
+      responses:
+        '200':
+          description: The updated household.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Household'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteHousehold
+      tags:
+      - Households
+      summary: Delete a household
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /households/listHouseholds:
+    get:
+      operationId: listHouseholds
+      tags:
+      - Households
+      summary: List households
+      responses:
+        '200':
+          description: A list of households.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  households:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Household'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /households/listRelationTypes:
+    get:
+      operationId: listHouseholdRelationTypes
+      tags:
+      - Households
+      summary: List household relation types
+      responses:
+        '200':
+          description: A list of relation types (e.g. spouse, child, parent).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  schemas:
+    HouseholdInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        householdMembers:
+          type: array
+          items:
+            type: object
+            properties:
+              accountId:
+                type: string
+              relationToHousehold:
+                type: string
+      additionalProperties: true
+    Household:
+      allOf:
+      - $ref: '#/components/schemas/HouseholdInput'
+      - type: object
+        properties:
+          householdId:
+            type: string
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.

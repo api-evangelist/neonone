@@ -1,0 +1,553 @@
+openapi: 3.0.3
+info:
+  title: Neon CRM API v2 Accounts Events API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  version: '2.11'
+  contact:
+    name: Neon One Developer Center
+    url: https://developer.neoncrm.com/
+  license:
+    name: Proprietary
+    url: https://neonone.com/
+servers:
+- url: https://api.neoncrm.com/v2
+  description: Production and Sandbox
+- url: https://trial.z2systems.com/v2
+  description: Trial instances
+security:
+- basicAuth: []
+tags:
+- name: Events
+  description: Events, tickets, and event registrations.
+paths:
+  /events:
+    post:
+      operationId: createEvent
+      tags:
+      - Events
+      summary: Create an event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+      responses:
+        '200':
+          description: The created event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the event.
+      schema:
+        type: string
+    get:
+      operationId: getEvent
+      tags:
+      - Events
+      summary: Retrieve an event
+      description: Supports a delimited list of multiple event categories as of API v2.11.
+      responses:
+        '200':
+          description: The requested event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEvent
+      tags:
+      - Events
+      summary: Update an event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+      responses:
+        '200':
+          description: The updated event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEvent
+      tags:
+      - Events
+      summary: Delete an event
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /events/search:
+    post:
+      operationId: searchEvents
+      tags:
+      - Events
+      summary: Search events
+      description: Rate-limited to 1 simultaneous request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Matching events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  searchResults:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /events/{id}/tickets:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the event.
+      schema:
+        type: string
+    get:
+      operationId: listEventTickets
+      tags:
+      - Events
+      summary: List an event's tickets
+      responses:
+        '200':
+          description: A list of event tickets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tickets:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEventTicket
+      tags:
+      - Events
+      summary: Create an event ticket type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The created ticket.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{id}/tickets/{ticketId}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the event.
+      schema:
+        type: string
+    - name: ticketId
+      in: path
+      required: true
+      description: The ID of the ticket.
+      schema:
+        type: string
+    get:
+      operationId: getEventTicket
+      tags:
+      - Events
+      summary: Retrieve an event ticket type
+      responses:
+        '200':
+          description: The requested ticket.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEventTicket
+      tags:
+      - Events
+      summary: Update an event ticket type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated ticket.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEventTicket
+      tags:
+      - Events
+      summary: Delete an event ticket type
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /events/{id}/attendees:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the event.
+      schema:
+        type: string
+    get:
+      operationId: listEventAttendees
+      tags:
+      - Events
+      summary: List an event's attendees
+      description: Attendee fields expanded in API v2.9 to include prefix, email, companyName, address, city, stateProvince, zipCode, phone1, phone1Type, dob, eventName, registrationId, and ticketName.
+      responses:
+        '200':
+          description: A list of event attendees.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attendees:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventAttendee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{id}/eventRegistrations:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the event.
+      schema:
+        type: string
+    get:
+      operationId: listEventRegistrationsForEvent
+      tags:
+      - Events
+      summary: List registrations for an event
+      responses:
+        '200':
+          description: A list of registrations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventRegistrations:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /eventRegistrations:
+    post:
+      operationId: createEventRegistration
+      tags:
+      - Events
+      summary: Create an event registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRegistrationInput'
+      responses:
+        '200':
+          description: The created registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRegistration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /eventRegistrations/{registrationId}:
+    parameters:
+    - name: registrationId
+      in: path
+      required: true
+      description: The ID of the event registration.
+      schema:
+        type: string
+    get:
+      operationId: getEventRegistration
+      tags:
+      - Events
+      summary: Retrieve an event registration
+      responses:
+        '200':
+          description: The requested registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRegistration'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEventRegistration
+      tags:
+      - Events
+      summary: Update an event registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRegistrationInput'
+      responses:
+        '200':
+          description: The updated registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRegistration'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchEventRegistration
+      tags:
+      - Events
+      summary: Partially update an event registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The updated registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRegistration'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEventRegistration
+      tags:
+      - Events
+      summary: Delete an event registration
+      responses:
+        '200':
+          description: Deletion confirmation.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /eventRegistrations/calculate:
+    post:
+      operationId: calculateEventRegistration
+      tags:
+      - Events
+      summary: Calculate the price of a prospective event registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: The calculated registration total.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    EventInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        eventDates:
+          type: object
+          additionalProperties: true
+        category:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    SearchRequest:
+      type: object
+      required:
+      - searchFields
+      - outputFields
+      properties:
+        searchFields:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              operator:
+                type: string
+              value:
+                type: string
+        outputFields:
+          type: array
+          items:
+            type: string
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+            pageSize:
+              type: integer
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    EventRegistrationInput:
+      type: object
+      required:
+      - eventId
+      - accountId
+      properties:
+        eventId:
+          type: string
+        accountId:
+          type: string
+        registrantAccountId:
+          type: string
+        tickets:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    EventAttendee:
+      type: object
+      properties:
+        registrationId:
+          type: string
+        ticketName:
+          type: string
+        eventName:
+          type: string
+        prefix:
+          type: string
+        email:
+          type: string
+        companyName:
+          type: string
+        addressLine1:
+          type: string
+        city:
+          type: string
+        stateProvince:
+          type: string
+        zipCode:
+          type: string
+        phone1:
+          type: string
+        phone1Type:
+          type: string
+        dob:
+          type: string
+          format: date
+      additionalProperties: true
+    EventRegistration:
+      allOf:
+      - $ref: '#/components/schemas/EventRegistrationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+    Event:
+      allOf:
+      - $ref: '#/components/schemas/EventInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          thumbnailUrl:
+            type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Username is the Neon CRM organization's Org ID; password is an API key generated for a system user under Settings > User Management.
