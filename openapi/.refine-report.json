@@ -1,0 +1,36 @@
+{
+  "provider": "neonone",
+  "sources": [
+    "neonone-accounts-api-openapi.yml",
+    "neonone-campaigns-api-openapi.yml",
+    "neonone-custom-fields-api-openapi.yml",
+    "neonone-donations-api-openapi.yml",
+    "neonone-events-api-openapi.yml",
+    "neonone-households-api-openapi.yml",
+    "neonone-memberships-api-openapi.yml",
+    "neonone-orders-api-openapi.yml",
+    "neonone-properties-api-openapi.yml",
+    "neonone-store-api-openapi.yml",
+    "neonone-volunteers-api-openapi.yml",
+    "neonone-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "neonone-accounts-api-openapi.yml",
+    "neonone-campaigns-api-openapi.yml",
+    "neonone-custom-fields-api-openapi.yml",
+    "neonone-donations-api-openapi.yml",
+    "neonone-events-api-openapi.yml",
+    "neonone-households-api-openapi.yml",
+    "neonone-memberships-api-openapi.yml",
+    "neonone-orders-api-openapi.yml",
+    "neonone-properties-api-openapi.yml",
+    "neonone-store-api-openapi.yml",
+    "neonone-volunteers-api-openapi.yml",
+    "neonone-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
