@@ -1,0 +1,389 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Events API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an event"
+        },
+        {
+          "info": {
+            "name": "Retrieve an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ]
+          },
+          "docs": "Supports a delimited list of multiple event categories as of API v2.11."
+        },
+        {
+          "info": {
+            "name": "Update an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an event"
+        },
+        {
+          "info": {
+            "name": "Delete an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ]
+          },
+          "docs": "Delete an event"
+        },
+        {
+          "info": {
+            "name": "Search events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/events/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rate-limited to 1 simultaneous request."
+        },
+        {
+          "info": {
+            "name": "List an event's tickets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/events/:id/tickets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ]
+          },
+          "docs": "List an event's tickets"
+        },
+        {
+          "info": {
+            "name": "Create an event ticket type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/events/:id/tickets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an event ticket type"
+        },
+        {
+          "info": {
+            "name": "Retrieve an event ticket type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/events/:id/tickets/:ticketId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              },
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ticket."
+              }
+            ]
+          },
+          "docs": "Retrieve an event ticket type"
+        },
+        {
+          "info": {
+            "name": "Update an event ticket type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/events/:id/tickets/:ticketId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              },
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ticket."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an event ticket type"
+        },
+        {
+          "info": {
+            "name": "Delete an event ticket type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/events/:id/tickets/:ticketId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              },
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ticket."
+              }
+            ]
+          },
+          "docs": "Delete an event ticket type"
+        },
+        {
+          "info": {
+            "name": "List an event's attendees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/events/:id/attendees",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ]
+          },
+          "docs": "Attendee fields expanded in API v2.9 to include prefix, email, companyName, address, city, stateProvince, zipCode, phone1, phone1Type, dob, eventName, registrationId, and ticketName."
+        },
+        {
+          "info": {
+            "name": "List registrations for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/events/:id/eventRegistrations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event."
+              }
+            ]
+          },
+          "docs": "List registrations for an event"
+        },
+        {
+          "info": {
+            "name": "Create an event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an event registration"
+        },
+        {
+          "info": {
+            "name": "Retrieve an event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations/:registrationId",
+            "params": [
+              {
+                "name": "registrationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event registration."
+              }
+            ]
+          },
+          "docs": "Retrieve an event registration"
+        },
+        {
+          "info": {
+            "name": "Update an event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations/:registrationId",
+            "params": [
+              {
+                "name": "registrationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event registration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an event registration"
+        },
+        {
+          "info": {
+            "name": "Partially update an event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations/:registrationId",
+            "params": [
+              {
+                "name": "registrationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event registration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update an event registration"
+        },
+        {
+          "info": {
+            "name": "Delete an event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations/:registrationId",
+            "params": [
+              {
+                "name": "registrationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event registration."
+              }
+            ]
+          },
+          "docs": "Delete an event registration"
+        },
+        {
+          "info": {
+            "name": "Calculate the price of a prospective event registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/eventRegistrations/calculate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calculate the price of a prospective event registration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Store API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List online store products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/store/products"
+          },
+          "docs": "Introduced in API v2.1."
+        },
+        {
+          "info": {
+            "name": "Retrieve an online store product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/store/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the product."
+              }
+            ]
+          },
+          "docs": "Retrieve an online store product"
+        },
+        {
+          "info": {
+            "name": "List online store catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/store/catalogs"
+          },
+          "docs": "List online store catalogs"
+        },
+        {
+          "info": {
+            "name": "List online store categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/store/categories"
+          },
+          "docs": "List online store categories"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

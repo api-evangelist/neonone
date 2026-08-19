@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Memberships API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Memberships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List an account's memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/memberships",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ]
+          },
+          "docs": "Includes isActive and primaryActiveMembership fields added in API v2.11."
+        },
+        {
+          "info": {
+            "name": "List sub-members on a membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/memberships/:memberId/subMembers",
+            "params": [
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the membership."
+              },
+              {
+                "name": "isCurrentEmployee",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Includes the isCurrentEmployee query parameter added in API v2.10."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

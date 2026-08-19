@@ -1,0 +1,371 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Custom Fields API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List standard custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customFields",
+            "params": [
+              {
+                "name": "isEventSpecificField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "attendeeQuestion",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Schema updated in API v2.10 with displayName and validated data types."
+        },
+        {
+          "info": {
+            "name": "Create a standard custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/customFields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a standard custom field"
+        },
+        {
+          "info": {
+            "name": "Retrieve a standard custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customFields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the custom field."
+              }
+            ]
+          },
+          "docs": "Retrieve a standard custom field"
+        },
+        {
+          "info": {
+            "name": "Update a standard custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/customFields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the custom field."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Omitting an existing option from the request removes it (fixed in API v2.10)."
+        },
+        {
+          "info": {
+            "name": "List custom objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects"
+          },
+          "docs": "Custom Objects framework shipped to API v2.10 on April 12, 2025."
+        },
+        {
+          "info": {
+            "name": "Create a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/customObjects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a custom object"
+        },
+        {
+          "info": {
+            "name": "Retrieve a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ]
+          },
+          "docs": "Retrieve a custom object"
+        },
+        {
+          "info": {
+            "name": "Update a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a custom object"
+        },
+        {
+          "info": {
+            "name": "Partially update a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a custom object"
+        },
+        {
+          "info": {
+            "name": "Delete a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ]
+          },
+          "docs": "Delete a custom object"
+        },
+        {
+          "info": {
+            "name": "List fields on a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/fields",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ]
+          },
+          "docs": "List fields on a custom object"
+        },
+        {
+          "info": {
+            "name": "Create a field on a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/fields",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a field on a custom object"
+        },
+        {
+          "info": {
+            "name": "List records of a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/records",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ]
+          },
+          "docs": "List records of a custom object"
+        },
+        {
+          "info": {
+            "name": "Create a record of a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/records",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a record of a custom object"
+        },
+        {
+          "info": {
+            "name": "Retrieve a record of a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/records/:id",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the record."
+              }
+            ]
+          },
+          "docs": "Retrieve a record of a custom object"
+        },
+        {
+          "info": {
+            "name": "Delete a record of a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/customObjects/:idOrApiAlias/records/:id",
+            "params": [
+              {
+                "name": "idOrApiAlias",
+                "value": "",
+                "type": "path",
+                "description": "The ID or API alias of the custom object."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the record."
+              }
+            ]
+          },
+          "docs": "Delete a record of a custom object"
+        },
+        {
+          "info": {
+            "name": "List master/detail custom objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/masterDetailObjects"
+          },
+          "docs": "List master/detail custom objects"
+        },
+        {
+          "info": {
+            "name": "List lookup custom objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/customObjects/lookUpObjects"
+          },
+          "docs": "List lookup custom objects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

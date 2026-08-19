@@ -1,0 +1,461 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts",
+            "params": [
+              {
+                "name": "currentPage",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number to retrieve."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              }
+            ]
+          },
+          "docs": "Retrieves accounts in bulk, functioning similarly to the v1 keyword search. Added in API v2.3."
+        },
+        {
+          "info": {
+            "name": "Create an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new individual or company account."
+        },
+        {
+          "info": {
+            "name": "Retrieve an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ]
+          },
+          "docs": "Retrieves an individual or organization account by ID. Returns 222 Merged Account if the account was merged into another."
+        },
+        {
+          "info": {
+            "name": "Update an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an account"
+        },
+        {
+          "info": {
+            "name": "Search accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/accounts/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advanced search over accounts using searchFields and outputFields. Rate-limited to 1 simultaneous request."
+        },
+        {
+          "info": {
+            "name": "List account search fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/search/searchFields"
+          },
+          "docs": "List account search fields"
+        },
+        {
+          "info": {
+            "name": "List account output fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/search/outputFields"
+          },
+          "docs": "List account output fields"
+        },
+        {
+          "info": {
+            "name": "Link two accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/accounts/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link two accounts"
+        },
+        {
+          "info": {
+            "name": "Unlink two previously merged accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/accounts/unlink",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlink two previously merged accounts"
+        },
+        {
+          "info": {
+            "name": "List contacts on an organization account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ]
+          },
+          "docs": "List contacts on an organization account"
+        },
+        {
+          "info": {
+            "name": "Add a contact to an organization account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a contact to an organization account"
+        },
+        {
+          "info": {
+            "name": "Retrieve a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contact."
+              }
+            ]
+          },
+          "docs": "Retrieve a contact"
+        },
+        {
+          "info": {
+            "name": "Update a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a contact"
+        },
+        {
+          "info": {
+            "name": "Partially update a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a contact"
+        },
+        {
+          "info": {
+            "name": "Remove a contact from an organization account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contact."
+              }
+            ]
+          },
+          "docs": "Remove a contact from an organization account"
+        },
+        {
+          "info": {
+            "name": "List an account's donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/donations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ]
+          },
+          "docs": "List an account's donations"
+        },
+        {
+          "info": {
+            "name": "List an account's pledges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/accounts/:id/pledges",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account."
+              }
+            ]
+          },
+          "docs": "Includes the pledgeStatus (open or closed) field added in API v2.11."
+        },
+        {
+          "info": {
+            "name": "Add an address to an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/addresses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an address to an account"
+        },
+        {
+          "info": {
+            "name": "Retrieve an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/addresses/:addressId",
+            "params": [
+              {
+                "name": "addressId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the address."
+              }
+            ]
+          },
+          "docs": "Retrieve an address"
+        },
+        {
+          "info": {
+            "name": "Update an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/addresses/:addressId",
+            "params": [
+              {
+                "name": "addressId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an address"
+        },
+        {
+          "info": {
+            "name": "Partially update an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/addresses/:addressId",
+            "params": [
+              {
+                "name": "addressId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update an address"
+        },
+        {
+          "info": {
+            "name": "Remove an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/addresses/:addressId",
+            "params": [
+              {
+                "name": "addressId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the address."
+              }
+            ]
+          },
+          "docs": "Remove an address"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

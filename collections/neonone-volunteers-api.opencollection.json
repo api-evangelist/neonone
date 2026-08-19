@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Volunteers API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Volunteers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List volunteers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/volunteers"
+          },
+          "docs": "Volunteer Management endpoints added to API v2.9 in November 2024."
+        },
+        {
+          "info": {
+            "name": "List volunteer opportunities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/opportunities"
+          },
+          "docs": "List volunteer opportunities"
+        },
+        {
+          "info": {
+            "name": "Create a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/opportunities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Retrieve a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/opportunities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ]
+          },
+          "docs": "Retrieve a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Update a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/opportunities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Partially update a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/opportunities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Delete a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/opportunities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ]
+          },
+          "docs": "Delete a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Add volunteers to an opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/opportunities/:id/addVolunteers",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accepts the opportunityRoles parameter, added in API v2.11, to assign a role during sign-up."
+        },
+        {
+          "info": {
+            "name": "List shifts for a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/opportunities/:opportunityId/shifts",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ]
+          },
+          "docs": "List shifts for a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "Create a shift for a volunteer opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/opportunities/:opportunityId/shifts",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the volunteer opportunity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a shift for a volunteer opportunity"
+        },
+        {
+          "info": {
+            "name": "List volunteer time sheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/timesheets"
+          },
+          "docs": "List volunteer time sheets"
+        },
+        {
+          "info": {
+            "name": "Create a volunteer time sheet entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/timesheets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a volunteer time sheet entry"
+        },
+        {
+          "info": {
+            "name": "Retrieve a volunteer time sheet entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/timesheets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the time sheet entry."
+              }
+            ]
+          },
+          "docs": "Retrieve a volunteer time sheet entry"
+        },
+        {
+          "info": {
+            "name": "Delete a volunteer time sheet entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/timesheets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the time sheet entry."
+              }
+            ]
+          },
+          "docs": "Delete a volunteer time sheet entry"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

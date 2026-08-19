@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Households API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Households",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a household",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/households",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Household endpoints shipped to API v2.10 on June 7, 2025."
+        },
+        {
+          "info": {
+            "name": "Update a household",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/households/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the household."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a household"
+        },
+        {
+          "info": {
+            "name": "Delete a household",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/households/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the household."
+              }
+            ]
+          },
+          "docs": "Delete a household"
+        },
+        {
+          "info": {
+            "name": "List households",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/households/listHouseholds"
+          },
+          "docs": "List households"
+        },
+        {
+          "info": {
+            "name": "List household relation types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/households/listRelationTypes"
+          },
+          "docs": "List household relation types"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

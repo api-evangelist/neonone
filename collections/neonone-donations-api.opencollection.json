@@ -1,0 +1,560 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Donations API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Donations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a donation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/donations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a donation"
+        },
+        {
+          "info": {
+            "name": "Retrieve a donation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/donations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the donation."
+              }
+            ]
+          },
+          "docs": "Retrieve a donation"
+        },
+        {
+          "info": {
+            "name": "Update a donation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/donations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the donation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a donation"
+        },
+        {
+          "info": {
+            "name": "Partially update a donation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.neoncrm.com/v2/donations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the donation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a donation"
+        },
+        {
+          "info": {
+            "name": "Delete a donation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/donations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the donation."
+              }
+            ]
+          },
+          "docs": "Delete a donation"
+        },
+        {
+          "info": {
+            "name": "Search donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/donations/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rate-limited to 1 simultaneous request."
+        },
+        {
+          "info": {
+            "name": "Create a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/pledges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a pledge"
+        },
+        {
+          "info": {
+            "name": "Retrieve a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/pledges/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ]
+          },
+          "docs": "Retrieve a pledge"
+        },
+        {
+          "info": {
+            "name": "Update a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/pledges/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a pledge"
+        },
+        {
+          "info": {
+            "name": "Delete a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/pledges/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ]
+          },
+          "docs": "Delete a pledge"
+        },
+        {
+          "info": {
+            "name": "List payments made against a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/pledges/:id/pledgePayments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ]
+          },
+          "docs": "List payments made against a pledge"
+        },
+        {
+          "info": {
+            "name": "Create a payment against a pledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/pledges/:id/pledgePayments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a payment against a pledge"
+        },
+        {
+          "info": {
+            "name": "Retrieve a pledge payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/pledges/:id/pledgePayments/:paymentId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              },
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge payment."
+              }
+            ]
+          },
+          "docs": "Retrieve a pledge payment"
+        },
+        {
+          "info": {
+            "name": "Delete a pledge payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/pledges/:id/pledgePayments/:paymentId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              },
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge payment."
+              }
+            ]
+          },
+          "docs": "Delete a pledge payment"
+        },
+        {
+          "info": {
+            "name": "Create a pledge installment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/pledges/:pledgeId/installments",
+            "params": [
+              {
+                "name": "pledgeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Added in API v2.3."
+        },
+        {
+          "info": {
+            "name": "Retrieve a pledge installment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/pledges/:pledgeId/installments/:id",
+            "params": [
+              {
+                "name": "pledgeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the installment."
+              }
+            ]
+          },
+          "docs": "Retrieve a pledge installment"
+        },
+        {
+          "info": {
+            "name": "Update a pledge installment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/pledges/:pledgeId/installments/:id",
+            "params": [
+              {
+                "name": "pledgeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the installment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a pledge installment"
+        },
+        {
+          "info": {
+            "name": "Delete a pledge installment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/pledges/:pledgeId/installments/:id",
+            "params": [
+              {
+                "name": "pledgeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the pledge."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the installment."
+              }
+            ]
+          },
+          "docs": "Delete a pledge installment"
+        },
+        {
+          "info": {
+            "name": "List recurring donation schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/recurring"
+          },
+          "docs": "List recurring donation schedules"
+        },
+        {
+          "info": {
+            "name": "Create a recurring donation schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/recurring",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a recurring donation schedule"
+        },
+        {
+          "info": {
+            "name": "Retrieve a recurring donation schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/recurring/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the recurring donation."
+              }
+            ]
+          },
+          "docs": "Retrieve a recurring donation schedule"
+        },
+        {
+          "info": {
+            "name": "Update a recurring donation schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.neoncrm.com/v2/recurring/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the recurring donation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a recurring donation schedule"
+        },
+        {
+          "info": {
+            "name": "Cancel/delete a recurring donation schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/recurring/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the recurring donation."
+              }
+            ]
+          },
+          "docs": "Cancel/delete a recurring donation schedule"
+        },
+        {
+          "info": {
+            "name": "List soft credits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/softCredits"
+          },
+          "docs": "Added in API v2.3."
+        },
+        {
+          "info": {
+            "name": "Create a soft credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.neoncrm.com/v2/softCredits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a soft credit"
+        },
+        {
+          "info": {
+            "name": "Retrieve a soft credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/softCredits/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the soft credit."
+              }
+            ]
+          },
+          "docs": "Retrieve a soft credit"
+        },
+        {
+          "info": {
+            "name": "Delete a soft credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.neoncrm.com/v2/softCredits/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the soft credit."
+              }
+            ]
+          },
+          "docs": "Delete a soft credit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

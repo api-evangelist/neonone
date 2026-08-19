@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Neon CRM API v2 Accounts Properties API",
+    "version": "2.11"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accepted credit card types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/payments/creditCardTypes"
+          },
+          "docs": "List accepted credit card types"
+        },
+        {
+          "info": {
+            "name": "List payment tender types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/payments/tenders"
+          },
+          "docs": "Includes DAFpay and ACSS tender types added in API v2.10."
+        },
+        {
+          "info": {
+            "name": "Retrieve payment processor settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/payments/processorSettings"
+          },
+          "docs": "Retrieve payment processor settings"
+        },
+        {
+          "info": {
+            "name": "List funds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/properties/funds"
+          },
+          "docs": "List funds"
+        },
+        {
+          "info": {
+            "name": "List purposes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/properties/purposes"
+          },
+          "docs": "List purposes"
+        },
+        {
+          "info": {
+            "name": "List solicitation methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/properties/solicitationMethods"
+          },
+          "docs": "List solicitation methods"
+        },
+        {
+          "info": {
+            "name": "List countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/properties/countries"
+          },
+          "docs": "List countries"
+        },
+        {
+          "info": {
+            "name": "List states/provinces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.neoncrm.com/v2/properties/states"
+          },
+          "docs": "List states/provinces"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
