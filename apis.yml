@@ -24,6 +24,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/neonone.png
 tags:
+- Non-Profit
+- CRM
+- Fundraising
+- Donor Management
+- Membership Management
+- Event
+tags_raw:
 - Nonprofit
 - CRM
 - Fundraising
@@ -40,6 +47,8 @@ apis:
   humanURL: https://developer.neoncrm.com/accounts/
   baseURL: https://api.neoncrm.com/v2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -176,6 +185,8 @@ apis:
   humanURL: https://developer.neoncrm.com/accounts/
   baseURL: https://api.neoncrm.com/v2
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -278,6 +289,8 @@ apis:
   humanURL: https://developer.neoncrm.com/accounts/
   baseURL: https://api.neoncrm.com/v2
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -414,6 +427,8 @@ apis:
   humanURL: https://developer.neoncrm.com/accounts/
   baseURL: https://api.neoncrm.com/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
