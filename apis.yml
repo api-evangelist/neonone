@@ -9,6 +9,18 @@ description: Neon One is a nonprofit technology company whose flagship product,
   the legacy v1 API, authenticated with HTTP Basic Auth (org ID + API key) against
   a base URL of https://api.neoncrm.com/v2. Neon has scheduled the retirement of
   API v1 and its legacy webhook structure for July 11, 2026.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
