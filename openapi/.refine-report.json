@@ -1,18 +1,7 @@
 {
   "provider": "neonone",
   "sources": [
-    "neonone-accounts-api-openapi.yml",
-    "neonone-campaigns-api-openapi.yml",
-    "neonone-custom-fields-api-openapi.yml",
-    "neonone-donations-api-openapi.yml",
-    "neonone-events-api-openapi.yml",
-    "neonone-households-api-openapi.yml",
-    "neonone-memberships-api-openapi.yml",
-    "neonone-orders-api-openapi.yml",
-    "neonone-properties-api-openapi.yml",
-    "neonone-store-api-openapi.yml",
-    "neonone-volunteers-api-openapi.yml",
-    "neonone-webhooks-api-openapi.yml"
+    "_original/neonone-openapi.yml"
   ],
   "outputs": [
     "neonone-accounts-api-openapi.yml",
@@ -31,6 +20,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "neonone-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "neonone-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-custom-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-donations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-households-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-memberships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-properties-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-store-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-volunteers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "neonone-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

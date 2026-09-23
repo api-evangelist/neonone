@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Neon CRM API v2 Accounts API
-  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019.
   version: '2.11'
   contact:
     name: Neon One Developer Center
@@ -465,6 +465,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
+    CurrentPage:
+      name: currentPage
+      in: query
+      required: false
+      description: Zero-indexed page number to retrieve.
+      schema:
+        type: integer
+        default: 0
     PageSize:
       name: pageSize
       in: query
@@ -480,15 +488,43 @@ components:
       description: The ID of the account.
       schema:
         type: string
-    CurrentPage:
-      name: currentPage
-      in: query
-      required: false
-      description: Zero-indexed page number to retrieve.
-      schema:
-        type: integer
-        default: 0
   schemas:
+    Account:
+      allOf:
+      - $ref: '#/components/schemas/AccountInput'
+      - type: object
+        properties:
+          accountId:
+            type: string
+          accountCustomFields:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    Contact:
+      type: object
+      properties:
+        contactId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email1:
+          type: string
+      additionalProperties: true
     Donation:
       allOf:
       - $ref: '#/components/schemas/DonationInput'
@@ -500,33 +536,6 @@ components:
             type: string
           publicRecognitionName:
             type: string
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
-    AccountListResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        pagination:
-          type: object
-          additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -555,6 +564,28 @@ components:
               type: integer
             pageSize:
               type: integer
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    AccountInput:
+      type: object
+      properties:
+        individualAccount:
+          type: object
+          additionalProperties: true
+        companyAccount:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
     Address:
       type: object
       properties:
@@ -579,42 +610,6 @@ components:
         isPrimaryAddress:
           type: boolean
       additionalProperties: true
-    Contact:
-      type: object
-      properties:
-        contactId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email1:
-          type: string
-      additionalProperties: true
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
     DonationInput:
       type: object
       required:
@@ -648,37 +643,36 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
-    Account:
-      allOf:
-      - $ref: '#/components/schemas/AccountInput'
-      - type: object
-        properties:
-          accountId:
-            type: string
-          accountCustomFields:
-            type: array
-            items:
-              type: object
-              additionalProperties: true
-    AccountInput:
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    AccountListResponse:
       type: object
       properties:
-        individualAccount:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
           type: object
           additionalProperties: true
-        companyAccount:
-          type: object
-          additionalProperties: true
-      additionalProperties: true
   responses:
-    Forbidden:
-      description: The authenticated API user lacks the permission required for this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -689,8 +683,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated API user lacks the permission required for this request.
       content:
         application/json:
           schema:

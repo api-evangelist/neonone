@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Neon CRM API v2 Accounts Donations API
-  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  title: Neon CRM API v2 Donations API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019.
   version: '2.11'
   contact:
     name: Neon One Developer Center
@@ -567,6 +567,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
     Donation:
       allOf:
       - $ref: '#/components/schemas/DonationInput'
@@ -578,23 +590,6 @@ components:
             type: string
           publicRecognitionName:
             type: string
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
     RecurringDonation:
       type: object
       properties:
@@ -654,18 +649,6 @@ components:
                 type: string
               message:
                 type: string
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
     DonationInput:
       type: object
       required:
@@ -698,6 +681,23 @@ components:
                 type: string
               solicitorName:
                 type: string
+      additionalProperties: true
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
       additionalProperties: true
   responses:
     NotFound:

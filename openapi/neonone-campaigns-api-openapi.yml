@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Neon CRM API v2 Accounts Campaigns API
-  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019. It exposes constituent accounts, households, donations, pledges, recurring donations, campaigns, memberships, events, custom fields and custom objects, orders and the online store, volunteers, and webhook subscriptions. All requests use HTTP Basic Authentication with the organization's Org ID as the username and an API key as the password. Neon CRM API v1 and its legacy webhook structure are scheduled to be retired on July 11, 2026; this document covers API v2 only. This is a representative subset of the full v2 surface, grounded in Neon's public developer documentation and version release notes (v2.0 - v2.11), not an exhaustive mirror of every documented endpoint.
+  title: Neon CRM API v2 Campaigns API
+  description: Neon CRM API v2 is a RESTful, JSON-based rebuild of Neon One's legacy API v1, first launched in 2019.
   version: '2.11'
   contact:
     name: Neon One Developer Center
@@ -136,14 +136,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
