@@ -408,29 +408,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Event:
-      allOf:
-      - $ref: '#/components/schemas/EventInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          thumbnailUrl:
-            type: string
-    EventInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        eventDates:
-          type: object
-          additionalProperties: true
-        category:
-          type: object
-          additionalProperties: true
-      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -459,13 +436,6 @@ components:
               type: integer
             pageSize:
               type: integer
-    EventRegistration:
-      allOf:
-      - $ref: '#/components/schemas/EventRegistrationInput'
-      - type: object
-        properties:
-          id:
-            type: string
     Error:
       type: object
       properties:
@@ -478,24 +448,27 @@ components:
                 type: string
               message:
                 type: string
-    EventRegistrationInput:
+    EventInput:
       type: object
       required:
-      - eventId
-      - accountId
+      - name
       properties:
-        eventId:
+        name:
           type: string
-        accountId:
-          type: string
-        registrantAccountId:
-          type: string
-        tickets:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
+        eventDates:
+          type: object
+          additionalProperties: true
+        category:
+          type: object
+          additionalProperties: true
       additionalProperties: true
+    EventRegistration:
+      allOf:
+      - $ref: '#/components/schemas/EventRegistrationInput'
+      - type: object
+        properties:
+          id:
+            type: string
     EventAttendee:
       type: object
       properties:
@@ -526,6 +499,33 @@ components:
         dob:
           type: string
           format: date
+      additionalProperties: true
+    Event:
+      allOf:
+      - $ref: '#/components/schemas/EventInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          thumbnailUrl:
+            type: string
+    EventRegistrationInput:
+      type: object
+      required:
+      - eventId
+      - accountId
+      properties:
+        eventId:
+          type: string
+        accountId:
+          type: string
+        registrantAccountId:
+          type: string
+        tickets:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
       additionalProperties: true
   responses:
     NotFound:

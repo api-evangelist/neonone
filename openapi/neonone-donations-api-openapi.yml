@@ -567,48 +567,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
-    RecurringDonation:
-      type: object
-      properties:
-        id:
-          type: string
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        creditCardOnline:
-          type: object
-          additionalProperties: true
-        ach:
-          type: object
-          additionalProperties: true
-        frequency:
-          type: string
-      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -649,6 +607,54 @@ components:
                 type: string
               message:
                 type: string
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    RecurringDonation:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        creditCardOnline:
+          type: object
+          additionalProperties: true
+        ach:
+          type: object
+          additionalProperties: true
+        frequency:
+          type: string
+      additionalProperties: true
     DonationInput:
       type: object
       required:
@@ -682,32 +688,26 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

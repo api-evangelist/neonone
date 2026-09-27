@@ -370,32 +370,6 @@ paths:
                   additionalProperties: true
 components:
   schemas:
-    CustomField:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        dataType:
-          type: string
-          enum:
-          - Whole Number
-          - Decimal
-          - Currency
-          - Date
-          - Text
-          - Email
-        component:
-          type: string
-        options:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-      additionalProperties: true
     Error:
       type: object
       properties:
@@ -423,15 +397,41 @@ components:
           - masterDetail
           - lookUp
       additionalProperties: true
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        dataType:
+          type: string
+          enum:
+          - Whole Number
+          - Decimal
+          - Currency
+          - Date
+          - Text
+          - Email
+        component:
+          type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

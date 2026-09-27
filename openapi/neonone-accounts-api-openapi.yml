@@ -464,78 +464,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    CurrentPage:
-      name: currentPage
-      in: query
-      required: false
-      description: Zero-indexed page number to retrieve.
-      schema:
-        type: integer
-        default: 0
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Number of results per page.
-      schema:
-        type: integer
-        default: 50
-    AccountId:
-      name: id
-      in: path
-      required: true
-      description: The ID of the account.
-      schema:
-        type: string
   schemas:
-    Account:
-      allOf:
-      - $ref: '#/components/schemas/AccountInput'
-      - type: object
-        properties:
-          accountId:
-            type: string
-          accountCustomFields:
-            type: array
-            items:
-              type: object
-              additionalProperties: true
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
-    Contact:
-      type: object
-      properties:
-        contactId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email1:
-          type: string
-      additionalProperties: true
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
     SearchRequest:
       type: object
       required:
@@ -576,6 +505,18 @@ components:
                 type: string
               message:
                 type: string
+    Contact:
+      type: object
+      properties:
+        contactId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email1:
+          type: string
+      additionalProperties: true
     AccountInput:
       type: object
       properties:
@@ -585,6 +526,45 @@ components:
         companyAccount:
           type: object
           additionalProperties: true
+      additionalProperties: true
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    AccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
+          type: object
+          additionalProperties: true
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
       additionalProperties: true
     Address:
       type: object
@@ -610,6 +590,18 @@ components:
         isPrimaryAddress:
           type: boolean
       additionalProperties: true
+    Account:
+      allOf:
+      - $ref: '#/components/schemas/AccountInput'
+      - type: object
+        properties:
+          accountId:
+            type: string
+          accountCustomFields:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
     DonationInput:
       type: object
       required:
@@ -643,36 +635,44 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
-    AccountListResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        pagination:
-          type: object
-          additionalProperties: true
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        default: 50
+    CurrentPage:
+      name: currentPage
+      in: query
+      required: false
+      description: Zero-indexed page number to retrieve.
+      schema:
+        type: integer
+        default: 0
+    AccountId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the account.
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Forbidden:
+      description: The authenticated API user lacks the permission required for this request.
       content:
         application/json:
           schema:
@@ -683,14 +683,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated API user lacks the permission required for this request.
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
       content:
         application/json:
           schema:

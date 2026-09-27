@@ -305,34 +305,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    VolunteerShift:
-      type: object
-      properties:
-        id:
-          type: string
-        opportunityId:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-      additionalProperties: true
     Volunteer:
       type: object
       properties:
@@ -357,6 +330,20 @@ components:
                 type: string
               message:
                 type: string
+    VolunteerShift:
+      type: object
+      properties:
+        id:
+          type: string
+        opportunityId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      additionalProperties: true
     VolunteerOpportunity:
       type: object
       properties:
@@ -367,6 +354,19 @@ components:
         description:
           type: string
       additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

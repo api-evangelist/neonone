@@ -182,32 +182,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    OrderInput:
-      type: object
-      required:
-      - accountId
-      properties:
-        accountId:
-          type: string
-        totalCharge:
-          type: number
-          format: float
-        donations:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        memberships:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        storePurchases:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -255,15 +229,41 @@ components:
         properties:
           id:
             type: string
+    OrderInput:
+      type: object
+      required:
+      - accountId
+      properties:
+        accountId:
+          type: string
+        totalCharge:
+          type: number
+          format: float
+        donations:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        memberships:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        storePurchases:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
