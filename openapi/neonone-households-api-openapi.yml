@@ -118,18 +118,6 @@ paths:
                   additionalProperties: true
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
     HouseholdInput:
       type: object
       required:
@@ -154,6 +142,18 @@ components:
         properties:
           householdId:
             type: string
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
   responses:
     Unauthorized:
       description: Missing or invalid Org ID / API key in the Basic Authorization header.
