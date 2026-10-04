@@ -567,6 +567,41 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
     PledgeInput:
       type: object
       required:
@@ -603,69 +638,6 @@ components:
         frequency:
           type: string
       additionalProperties: true
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
-    SearchRequest:
-      type: object
-      required:
-      - searchFields
-      - outputFields
-      properties:
-        searchFields:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              operator:
-                type: string
-              value:
-                type: string
-        outputFields:
-          type: array
-          items:
-            type: string
-        pagination:
-          type: object
-          properties:
-            currentPage:
-              type: integer
-            pageSize:
-              type: integer
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
     DonationInput:
       type: object
       required:
@@ -699,13 +671,35 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
+    SearchRequest:
+      type: object
+      required:
+      - searchFields
+      - outputFields
+      properties:
+        searchFields:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              operator:
+                type: string
+              value:
+                type: string
+        outputFields:
+          type: array
+          items:
+            type: string
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+            pageSize:
+              type: integer
   responses:
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -714,6 +708,12 @@ components:
             $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:

@@ -118,6 +118,25 @@ paths:
                   additionalProperties: true
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Household:
+      allOf:
+      - $ref: '#/components/schemas/HouseholdInput'
+      - type: object
+        properties:
+          householdId:
+            type: string
     HouseholdInput:
       type: object
       required:
@@ -135,34 +154,15 @@ components:
               relationToHousehold:
                 type: string
       additionalProperties: true
-    Household:
-      allOf:
-      - $ref: '#/components/schemas/HouseholdInput'
-      - type: object
-        properties:
-          householdId:
-            type: string
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:

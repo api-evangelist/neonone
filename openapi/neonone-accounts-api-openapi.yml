@@ -464,56 +464,62 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    CurrentPage:
-      name: currentPage
-      in: query
-      required: false
-      description: Zero-indexed page number to retrieve.
-      schema:
-        type: integer
-        default: 0
-    AccountId:
-      name: id
-      in: path
-      required: true
-      description: The ID of the account.
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Number of results per page.
-      schema:
-        type: integer
-        default: 50
-  responses:
-    Forbidden:
-      description: The authenticated API user lacks the permission required for this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    AccountInput:
+      type: object
+      properties:
+        individualAccount:
+          type: object
+          additionalProperties: true
+        companyAccount:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    AccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
+          type: object
+          additionalProperties: true
     PledgeInput:
       type: object
       required:
@@ -531,18 +537,6 @@ components:
           type: string
           format: date
       additionalProperties: true
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
     Account:
       allOf:
       - $ref: '#/components/schemas/AccountInput'
@@ -612,39 +606,6 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
-    AccountInput:
-      type: object
-      properties:
-        individualAccount:
-          type: object
-          additionalProperties: true
-        companyAccount:
-          type: object
-          additionalProperties: true
-      additionalProperties: true
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
-    Contact:
-      type: object
-      properties:
-        contactId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email1:
-          type: string
-      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -673,28 +634,67 @@ components:
               type: integer
             pageSize:
               type: integer
-    AccountListResponse:
+    Contact:
       type: object
       properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        pagination:
-          type: object
-          additionalProperties: true
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
+        contactId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email1:
+          type: string
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated API user lacks the permission required for this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the account.
+      schema:
+        type: string
+    CurrentPage:
+      name: currentPage
+      in: query
+      required: false
+      description: Zero-indexed page number to retrieve.
+      schema:
+        type: integer
+        default: 0
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        default: 50
   securitySchemes:
     basicAuth:
       type: http
