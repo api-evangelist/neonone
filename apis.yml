@@ -473,6 +473,9 @@ apis:
   - type: Documentation
     url: https://developer.neoncrm.com/webhooks/
 common:
+- type: CapabilityMap
+  url: capabilities/neonone-capability-edges.yml
+  name: Neon One Business Capability Map
 - type: AgenticAccess
   url: agentic-access/neonone-agentic-access.yml
 - type: TrustCenter
