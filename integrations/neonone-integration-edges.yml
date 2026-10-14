@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/neonone/integrations
 - https://zapier.com/apps/neon-one/integrations
@@ -10,9 +10,332 @@ checked:
 - https://composio.dev/toolkits/neonone
 - https://monid.ai/tools/neonone
 - https://n8n.io/integrations/neonone/
+- https://neonone.com/partners/integrations/
 - https://zapier.com/apps/neon-one/integrations
 - https://zapier.com/apps/neonone/integrations
 summary: null
-marketplace_apps: []
-edges: []
+marketplace_apps:
+- marketplace: own
+  channel: partner-built
+  app: neonone
+  url: https://neonone.com/partners/integrations/
+  app_count: 21
+  adapter: sweep-nonprofit.py:neon
+  listed: 21
+edges:
+- partner_name: Margaret by Hudson Ferris
+  app: Margaret by Hudson Ferris
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/hudsonferris/
+  category: null
+  partner_domain: null
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Nuclavis
+  app: Nuclavis
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/nuclavis/
+  category: null
+  partner_domain: nuclavis.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Chariot
+  app: Chariot
+  partner: chariot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/chariot/
+  category: null
+  partner_domain: givechariot.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: LecturePanda
+  app: LecturePanda
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/lecturepanda/
+  category: null
+  partner_domain: lecturepanda.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: TaxJar
+  app: TaxJar
+  partner: taxjar
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/taxjar/
+  category: null
+  partner_domain: taxjar.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Windfall Data
+  app: Windfall Data
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/windfall-data/
+  category: null
+  partner_domain: null
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Grassroots Unwired
+  app: Grassroots Unwired
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/grassroots-unwired/
+  category: null
+  partner_domain: 4eventday.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: VolunteerLocal
+  app: VolunteerLocal
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/volunteerlocal/
+  category: null
+  partner_domain: volunteerlocal.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Zapier
+  app: Zapier
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/zapier-2/
+  category: null
+  partner_domain: null
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Cuseum
+  app: Cuseum
+  partner: cuseum
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/cuseum/
+  category: null
+  partner_domain: cuseum.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: GivBee
+  app: GivBee
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/givebee/
+  category: null
+  partner_domain: givbee.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Eventbrite
+  app: Eventbrite
+  partner: eventbrite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/eventbrite/
+  category: null
+  partner_domain: eventbrite.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Mailchimp
+  app: Mailchimp
+  partner: mailchimp
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/mailchimp/
+  category: null
+  partner_domain: mailchimp.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: QuickBooks
+  app: QuickBooks
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/quickbooks/
+  category: null
+  partner_domain: null
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: RedArc
+  app: RedArc
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/redarc/
+  category: null
+  partner_domain: redarc.systems
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Higher Logic
+  app: Higher Logic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/higher-logic/
+  category: null
+  partner_domain: higherlogic.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Constant Contact
+  app: Constant Contact
+  partner: constant-contact
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/constant-contact/
+  category: null
+  partner_domain: constantcontact.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Double the Donation
+  app: Double the Donation
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/double-the-donation/
+  category: null
+  partner_domain: 360matchpro.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: ClickBid
+  app: ClickBid
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/clickbid/
+  category: null
+  partner_domain: cbo.io
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Cougar Mountain Software
+  app: Cougar Mountain Software
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/cougar-mountain-software/
+  category: null
+  partner_domain: cougarmtn.com
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Ujoin Advocacy
+  app: Ujoin Advocacy
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: null
+  relationship: platform-app
+  direction: unknown
+  evidence: https://neonone.com/partners/integrations/ujoin/
+  category: null
+  partner_domain: ujoin.co
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
 templates: []
