@@ -181,6 +181,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -194,6 +213,39 @@ components:
                 type: string
               message:
                 type: string
+    Order:
+      allOf:
+      - $ref: '#/components/schemas/OrderInput'
+      - type: object
+        properties:
+          id:
+            type: string
+    OrderInput:
+      type: object
+      required:
+      - accountId
+      properties:
+        accountId:
+          type: string
+        totalCharge:
+          type: number
+          format: float
+        donations:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        memberships:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        storePurchases:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -222,58 +274,6 @@ components:
               type: integer
             pageSize:
               type: integer
-    OrderInput:
-      type: object
-      required:
-      - accountId
-      properties:
-        accountId:
-          type: string
-        totalCharge:
-          type: number
-          format: float
-        donations:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        memberships:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        storePurchases:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-      additionalProperties: true
-    Order:
-      allOf:
-      - $ref: '#/components/schemas/OrderInput'
-      - type: object
-        properties:
-          id:
-            type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

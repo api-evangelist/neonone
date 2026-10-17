@@ -465,114 +465,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-    AccountInput:
-      type: object
-      properties:
-        individualAccount:
-          type: object
-          additionalProperties: true
-        companyAccount:
-          type: object
-          additionalProperties: true
-      additionalProperties: true
-    AccountListResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        pagination:
-          type: object
-          additionalProperties: true
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
-    Account:
-      allOf:
-      - $ref: '#/components/schemas/AccountInput'
-      - type: object
-        properties:
-          accountId:
-            type: string
-          accountCustomFields:
-            type: array
-            items:
-              type: object
-              additionalProperties: true
-    Address:
-      type: object
-      properties:
-        addressId:
-          type: string
-        accountId:
-          type: string
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        city:
-          type: string
-        stateProvince:
-          type: object
-          additionalProperties: true
-        zipCode:
-          type: string
-        country:
-          type: object
-          additionalProperties: true
-        isPrimaryAddress:
-          type: boolean
-      additionalProperties: true
     DonationInput:
       type: object
       required:
@@ -634,6 +526,65 @@ components:
               type: integer
             pageSize:
               type: integer
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
+    Address:
+      type: object
+      properties:
+        addressId:
+          type: string
+        accountId:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        stateProvince:
+          type: object
+          additionalProperties: true
+        zipCode:
+          type: string
+        country:
+          type: object
+          additionalProperties: true
+        isPrimaryAddress:
+          type: boolean
+      additionalProperties: true
     Contact:
       type: object
       properties:
@@ -646,21 +597,82 @@ components:
         email1:
           type: string
       additionalProperties: true
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    Account:
+      allOf:
+      - $ref: '#/components/schemas/AccountInput'
+      - type: object
+        properties:
+          accountId:
+            type: string
+          accountCustomFields:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+    AccountInput:
+      type: object
+      properties:
+        individualAccount:
+          type: object
+          additionalProperties: true
+        companyAccount:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    AccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
+          type: object
+          additionalProperties: true
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        default: 50
+    CurrentPage:
+      name: currentPage
+      in: query
+      required: false
+      description: Zero-indexed page number to retrieve.
+      schema:
+        type: integer
+        default: 0
+    AccountId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the account.
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated API user lacks the permission required for this request.
       content:
         application/json:
           schema:
@@ -671,30 +683,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    AccountId:
-      name: id
-      in: path
-      required: true
-      description: The ID of the account.
-      schema:
-        type: string
-    CurrentPage:
-      name: currentPage
-      in: query
-      required: false
-      description: Zero-indexed page number to retrieve.
-      schema:
-        type: integer
-        default: 0
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Number of results per page.
-      schema:
-        type: integer
-        default: 50
+    Forbidden:
+      description: The authenticated API user lacks the permission required for this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

@@ -567,77 +567,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Pledge:
-      allOf:
-      - $ref: '#/components/schemas/PledgeInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          pledgeStatus:
-            type: string
-            enum:
-            - open
-            - closed
-    Donation:
-      allOf:
-      - $ref: '#/components/schemas/DonationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-          batchNumber:
-            type: string
-          publicRecognitionName:
-            type: string
-    Error:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-    PledgeInput:
-      type: object
-      required:
-      - accountId
-      - amount
-      properties:
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        matchedDonationId:
-          type: string
-        expectedDate:
-          type: string
-          format: date
-      additionalProperties: true
-    RecurringDonation:
-      type: object
-      properties:
-        id:
-          type: string
-        accountId:
-          type: string
-        amount:
-          type: number
-          format: float
-        creditCardOnline:
-          type: object
-          additionalProperties: true
-        ach:
-          type: object
-          additionalProperties: true
-        frequency:
-          type: string
-      additionalProperties: true
     DonationInput:
       type: object
       required:
@@ -671,6 +600,65 @@ components:
               solicitorName:
                 type: string
       additionalProperties: true
+    RecurringDonation:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        creditCardOnline:
+          type: object
+          additionalProperties: true
+        ach:
+          type: object
+          additionalProperties: true
+        frequency:
+          type: string
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Donation:
+      allOf:
+      - $ref: '#/components/schemas/DonationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          batchNumber:
+            type: string
+          publicRecognitionName:
+            type: string
+    PledgeInput:
+      type: object
+      required:
+      - accountId
+      - amount
+      properties:
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        matchedDonationId:
+          type: string
+        expectedDate:
+          type: string
+          format: date
+      additionalProperties: true
     SearchRequest:
       type: object
       required:
@@ -699,6 +687,18 @@ components:
               type: integer
             pageSize:
               type: integer
+    Pledge:
+      allOf:
+      - $ref: '#/components/schemas/PledgeInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          pledgeStatus:
+            type: string
+            enum:
+            - open
+            - closed
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -706,14 +706,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: The rate limit for simultaneous requests to this endpoint was exceeded.
+    Unauthorized:
+      description: Missing or invalid Org ID / API key in the Basic Authorization header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Org ID / API key in the Basic Authorization header.
+    TooManyRequests:
+      description: The rate limit for simultaneous requests to this endpoint was exceeded.
       content:
         application/json:
           schema:

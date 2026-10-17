@@ -118,6 +118,13 @@ paths:
                   additionalProperties: true
 components:
   schemas:
+    Household:
+      allOf:
+      - $ref: '#/components/schemas/HouseholdInput'
+      - type: object
+        properties:
+          householdId:
+            type: string
     Error:
       type: object
       properties:
@@ -130,13 +137,6 @@ components:
                 type: string
               message:
                 type: string
-    Household:
-      allOf:
-      - $ref: '#/components/schemas/HouseholdInput'
-      - type: object
-        properties:
-          householdId:
-            type: string
     HouseholdInput:
       type: object
       required:
