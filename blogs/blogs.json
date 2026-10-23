@@ -5,17 +5,24 @@
       "source": "https://neonone.com/resources/blog/",
       "feed_url": "https://neonone.com/resources/blog/feed/",
       "title": "",
-      "saved": 5,
+      "saved": 0,
       "method": "discovered"
     },
     {
       "source": "https://neonone.com/feed/",
       "feed_url": "https://neonone.com/feed/",
       "title": "",
-      "saved": 2,
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://neonone.com/resources/blog/feed/",
+      "feed_url": "https://neonone.com/resources/blog/feed/",
+      "title": "",
+      "saved": 0,
       "method": "feed"
     }
   ],
-  "post_count": 7,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 9,
+  "fetched": "2026-10-17T14:53:57Z"
 }
