@@ -1,4 +1,4 @@
-# Neon One (neonone)
+# Neon One
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,254 +64,141 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Neon One is a nonprofit technology company whose flagship product, Neon CRM, is a donor management and fundraising platform used by nonprofits and membership associations to manage constituents, donations, memberships, events, campaigns, and volunteers. Neon CRM API v2 is a RESTful, JSON-based rebuild of the legacy v1 API, authenticated with HTTP Basic Auth (org ID + API key) against a base URL of `https://api.neoncrm.com/v2`. Neon has scheduled the retirement of API v1 and its legacy webhook structure for July 11, 2026.
+Neon One is a nonprofit technology company whose flagship product, Neon CRM, is a donor management and fundraising platform used by nonprofits and membership associations to manage constituents, donations, memberships, events, campaigns, and volunteers. Neon CRM API v2 is a RESTful, JSON-based rebuild of the legacy v1 API, authenticated with HTTP Basic Auth (org ID + API key) against a base URL of https://api.neoncrm.com/v2. Neon has scheduled the retirement of API v1 and its legacy webhook structure for July 11, 2026.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/neonone/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/neonone/refs/heads/main/apis.yml)
+**Areas:** Non-Profit · CRM · Fundraising · Donor Management · Membership Management · Event
 
-## Tags
+## Neon One on APIs.io
 
-- Nonprofit
-- CRM
-- Fundraising
-- Donor Management
-- Membership Management
-- Events
+Everything profiled for Neon One is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/neonone/](https://apis.io/providers/neonone/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (12)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+- [Neon One Accounts API](https://apis.io/apis/neonone/neonone-accounts-api/) — Individual and organization constituent records, contacts, and addresses.
+- [Neon One Campaigns API](https://apis.io/apis/neonone/neonone-campaigns-api/) — Fundraising campaigns that transactions are attributed to.
+- [Neon One Custom Fields API](https://apis.io/apis/neonone/neonone-custom-fields-api/) — Standard custom fields and the Custom Objects framework.
+- [Neon One Donations API](https://apis.io/apis/neonone/neonone-donations-api/) — Donations, pledges, pledge payments, recurring donations, and soft credits.
+- [Neon One Events API](https://apis.io/apis/neonone/neonone-events-api/) — Events, tickets, and event registrations.
+- [Neon One Households API](https://apis.io/apis/neonone/neonone-households-api/) — Grouping of individual accounts into households with relation types.
+- [Neon One Memberships API](https://apis.io/apis/neonone/neonone-memberships-api/) — Membership levels and terms held by an account.
+- [Neon One Orders API](https://apis.io/apis/neonone/neonone-orders-api/) — Orders grouping donations, memberships, and store purchases.
+- [Neon One Properties API](https://apis.io/apis/neonone/neonone-properties-api/) — Reference and lookup data used across other resources.
+- [Neon One Store API](https://apis.io/apis/neonone/neonone-store-api/) — Online store products, catalogs, and categories.
+- [Neon One Volunteers API](https://apis.io/apis/neonone/neonone-volunteers-api/) — Volunteers, groups, opportunities, roles, shifts, and time sheets.
+- [Neon One Webhooks API](https://apis.io/apis/neonone/neonone-webhooks-api/) — Outbound webhook subscriptions.
 
-## APIs
+### Published properties
 
-### Neon One Accounts API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Individual and organization constituent records (accounts) - create, retrieve, update, and search accounts; manage linked contacts on organization accounts, mailing/shipping addresses, and account custom fields.
+#### Agentic access (1)
 
-- **Human URL:** [https://developer.neoncrm.com/accounts/](https://developer.neoncrm.com/accounts/)
-- **Base URL:** `https://api.neoncrm.com/v2`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Neonone Agentic Access](https://apis.io/agentic-access/neonone/neonone-agentic-access/)
 
-- Accounts
-- Constituents
-- Addresses
-- Contacts
+#### Collections (13)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://developer.neoncrm.com/accounts/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Neon CRM API v2](https://apis.io/collections/neonone/open-neonone/)
+- [Neon CRM API v2 Accounts API](https://apis.io/collections/neonone/open-neonone-accounts-api/)
+- [Neon CRM API v2 Accounts Campaigns API](https://apis.io/collections/neonone/open-neonone-campaigns-api/)
+- [Neon CRM API v2 Accounts Custom Fields API](https://apis.io/collections/neonone/open-neonone-custom-fields-api/)
+- [Neon CRM API v2 Accounts Donations API](https://apis.io/collections/neonone/open-neonone-donations-api/)
+- [Neon CRM API v2 Accounts Events API](https://apis.io/collections/neonone/open-neonone-events-api/)
+- [Neon CRM API v2 Accounts Households API](https://apis.io/collections/neonone/open-neonone-households-api/)
+- [Neon CRM API v2 Accounts Memberships API](https://apis.io/collections/neonone/open-neonone-memberships-api/)
+- [Neon CRM API v2 Accounts Orders API](https://apis.io/collections/neonone/open-neonone-orders-api/)
+- [Neon CRM API v2 Accounts Properties API](https://apis.io/collections/neonone/open-neonone-properties-api/)
+- [Neon CRM API v2 Accounts Store API](https://apis.io/collections/neonone/open-neonone-store-api/)
+- [Neon CRM API v2 Accounts Volunteers API](https://apis.io/collections/neonone/open-neonone-volunteers-api/)
+- [Neon CRM API v2 Accounts Webhooks API](https://apis.io/collections/neonone/open-neonone-webhooks-api/)
 
-### Neon One Households API
+#### Security (3)
 
-Group individual accounts into households, defining the relation type (e.g. spouse, child) each member holds within the household. Household endpoints shipped to API v2.10 on June 7, 2025.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/](https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/)
-- **Base URL:** `https://api.neoncrm.com/v2`
+- [Neonone Authentication](https://apis.io/security/neonone/neonone-authentication/)
+- [Neonone Domain Security](https://apis.io/security/neonone/neonone-domain-security/)
+- [Neonone Trust Center](https://apis.io/security/neonone/neonone-trust-center/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Households
-- Accounts
-- Relationships
+Published plans, tiers and prices.
 
-#### Properties
+- [Neonone Plans Pricing](https://apis.io/plans/neonone/neonone-plans-pricing/)
 
-- [Documentation](https://developer.neoncrm.com/2025/06/09/api-v2-10-update-households/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Neon One Donations API
+Published request limits.
 
-One-time donations, multi-payment pledges and pledge installments, recurring donation schedules, and soft credits (crediting a donation to an account other than the paying donor).
+- [Neonone Rate Limits](https://apis.io/rate-limits/neonone/neonone-rate-limits/)
 
-- **Human URL:** [https://developer.neoncrm.com/transactions/](https://developer.neoncrm.com/transactions/)
-- **Base URL:** `https://api.neoncrm.com/v2`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Donations
-- Pledges
-- Recurring Donations
-- Soft Credits
+- [Neonone Finops](https://apis.io/finops/neonone/neonone-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://developer.neoncrm.com/transactions/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Neon One Campaigns API
-
-Fundraising campaigns, including peer-to-peer/social fundraising configuration, that donations, pledges, and recurring donations are attributed to.
-
-- **Human URL:** [https://developer.neoncrm.com/api-v2-resources/permissions/](https://developer.neoncrm.com/api-v2-resources/permissions/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Campaigns
-- Fundraising
-- Peer-to-Peer
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/api-v2-resources/permissions/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Memberships API
-
-Membership levels, terms, and sub-members held by an account, nested under the account resource - including active-status and primary-active-membership fields added in API v2.11.
-
-- **Human URL:** [https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/](https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Memberships
-- Membership Terms
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Events API
-
-Events, event tickets, event registrations, and event attendees - create and manage events and process registrations against them.
-
-- **Human URL:** [https://developer.neoncrm.com/api-v2-resources/rate-limits/](https://developer.neoncrm.com/api-v2-resources/rate-limits/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Events
-- Registrations
-- Tickets
-- Attendees
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/api-v2-resources/rate-limits/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Custom Fields API
-
-Standard custom fields attached to accounts, donations, and events, plus the full Custom Objects framework (objects, fields, form/list layouts, relations, validators, and records) shipped to API v2.10 in April 2025 for modeling data that does not fit Neon CRM's built-in schema.
-
-- **Human URL:** [https://developer.neoncrm.com/custom-objects/](https://developer.neoncrm.com/custom-objects/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Custom Fields
-- Custom Objects
-- Configuration
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/custom-objects/)
-- [Documentation](https://developer.neoncrm.com/2025/04/14/api-v2-10-update-custom-objects/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Orders & Store API
-
-Orders that group multiple donations, memberships, and store purchases into a single transaction, plus the online store catalog - products, catalogs, categories, and checkout/shipping configuration.
-
-- **Human URL:** [https://developer.neoncrm.com/2020/09/19/api-v2-1-release-notes/](https://developer.neoncrm.com/2020/09/19/api-v2-1-release-notes/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Orders
-- Store
-- Products
-- Shopping Cart
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/2020/09/19/api-v2-1-release-notes/)
-- [Documentation](https://developer.neoncrm.com/api-v2-resources/rate-limits/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Volunteers API
-
-Volunteer records, volunteer groups, volunteer opportunities and roles, opportunity shifts, and time sheets - added to API v2.9 in November 2024 and extended with role assignment during volunteer sign-up in v2.11.
-
-- **Human URL:** [https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/](https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Volunteers
-- Opportunities
-- Shifts
-- Time Sheets
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/2024/11/22/api-v2-9-updates-november-2024/)
-- [Documentation](https://developer.neoncrm.com/2025/10/24/api-v2-11-release-notes/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neon One Webhooks API
-
-Programmatically create, list, retrieve, update, and delete outbound webhook subscriptions that POST JSON notifications for create/update/delete actions on Accounts, Donations, Memberships, Event Registrations, Orders, and Activities, with automatic retry (up to 3 attempts, 2-second intervals) on failed deliveries.
-
-- **Human URL:** [https://developer.neoncrm.com/webhooks/](https://developer.neoncrm.com/webhooks/)
-- **Base URL:** `https://api.neoncrm.com/v2`
-
-#### Tags
-
-- Webhooks
-- Notifications
-- Events
-
-#### Properties
-
-- [Documentation](https://developer.neoncrm.com/webhooks/)
-- [API Reference](https://developer.neoncrm.com/api-v2/)
-- [OpenAPI](openapi/neonone-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/neonone.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/neonone.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/neoncrm)
-- [LinkedIn](https://www.linkedin.com/company/neonone)
 - [Website](https://neonone.com/)
 - [Documentation](https://developer.neoncrm.com/)
-- [Plans](plans/neonone-plans-pricing.yml)
-- [Rate Limits](rate-limits/neonone-rate-limits.yml)
-- [Fin Ops](finops/neonone-finops.yml)
+- [Blog](https://neonone.com/resources/blog/)
+- [GitHub](https://github.com/neoncrm)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 50.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/neonone/](https://apis.io/providers/neonone/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Neon One: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/neonone/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
